@@ -39,8 +39,8 @@ const labelText = (labels) => {
   return ''
 }
 
-const activeIssues = computed(() => issues.value.filter(i => i.state === 'open'))
-const doneIssues = computed(() => issues.value.filter(i => i.state === 'closed'))
+const activeIssues = computed(() => issues.value.filter(i => i.state === 'OPEN'))
+const doneIssues = computed(() => issues.value.filter(i => i.state === 'CLOSED'))
 const p0s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p0'))
 const p1s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p1'))
 const p2s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p2'))
