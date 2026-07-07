@@ -32,6 +32,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          mkdir -p public
           gh issue list --repo ${{ github.repository }} --state all --limit 50 --json number,title,labels,state,url,createdAt --jq '.' > public/issues.json
           echo "Fetched $(jq 'length' public/issues.json) issues"
 
