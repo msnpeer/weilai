@@ -22,25 +22,25 @@ onMounted(async () => {
 
 const labelKey = (labels) => {
   for (const l of labels) {
-    if (l.name.startsWith('P0')) return 'p0'
-    if (l.name.startsWith('P1')) return 'p1'
-    if (l.name.startsWith('P2')) return 'p2'
-    if (l.name === '已完成') return 'done'
+    if (l.startsWith('P0')) return 'p0'
+    if (l.startsWith('P1')) return 'p1'
+    if (l.startsWith('P2')) return 'p2'
+    if (l === '已完成') return 'done'
   }
   return 'p2'
 }
 const labelText = (labels) => {
   for (const l of labels) {
-    if (l.name.startsWith('P0')) return 'P0'
-    if (l.name.startsWith('P1')) return 'P1'
-    if (l.name.startsWith('P2')) return 'P2'
-    if (l.name === '已完成') return 'OK'
+    if (l.startsWith('P0')) return 'P0'
+    if (l.startsWith('P1')) return 'P1'
+    if (l.startsWith('P2')) return 'P2'
+    if (l === '已完成') return 'OK'
   }
   return ''
 }
 
-const activeIssues = computed(() => issues.value.filter(i => i.state === 'OPEN'))
-const doneIssues = computed(() => issues.value.filter(i => i.state === 'CLOSED'))
+const activeIssues = computed(() => issues.value.filter(i => i.state === 'open'))
+const doneIssues = computed(() => issues.value.filter(i => i.state === 'closed'))
 const p0s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p0'))
 const p1s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p1'))
 const p2s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p2'))
