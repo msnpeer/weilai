@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二阶·AI造物营 · 海报</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  min-height: 1920px;
+  background: linear-gradient(180deg, #0F172A 0%, #1E3A5F 50%, #0F172A 100%);
+  font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 50px;
+  position: relative;
+  overflow: hidden;
+}
+body::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.grid-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.tier-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(59,130,246,0.15);
+  border: 2px solid rgba(59,130,246,0.4);
+  color: #93C5FD;
+  font-size: 28px;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 40px;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
+}
+.brand-small {
+  position: absolute;
+  top: 40px;
+  right: 50px;
+  font-size: 20px;
+  color: #64748B;
+  letter-spacing: 4px;
+  z-index: 1;
+}
+.title-area {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+.main-title {
+  font-size: 80px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #FFFFFF 0%, #93C5FD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.sub-title {
+  font-size: 36px;
+  font-weight: 500;
+  color: #BFDBFE;
+  line-height: 1.4;
+}
+.outcomes {
+  width: 100%;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+.outcomes-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #93C5FD;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 4px;
+}
+.outcome-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+}
+.outcome-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(59,130,246,0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.outcome-text { flex: 1; }
+.outcome-text h3 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.outcome-text p {
+  font-size: 18px;
+  color: #94A3B8;
+}
+.audience {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
+}
+.audience-title {
+  font-size: 22px;
+  color: #64748B;
+  margin-bottom: 16px;
+}
+.tags {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.tag {
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.3);
+  color: #93C5FD;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 30px;
+}
+.cta-area {
+  text-align: center;
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+}
+.cta-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #3B82F6, #60A5FA);
+  color: #FFFFFF;
+  font-size: 36px;
+  font-weight: 800;
+  padding: 28px 100px;
+  border-radius: 60px;
+  text-decoration: none;
+  box-shadow: 0 8px 32px rgba(59,130,246,0.4);
+  margin-bottom: 24px;
+}
+.cta-sub {
+  font-size: 22px;
+  color: #64748B;
+}
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.footer-note {
+  font-size: 18px;
+  color: #64748B;
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="brand-small">未 来 AI</div>
+
+<div class="tier-label">🔵 二阶 · 主力营收款</div>
+
+<div class="title-area">
+  <div class="main-title">AI 造物营</div>
+  <div class="sub-title">2天时间<br>把想法变成能打开、能展示的网站</div>
+</div>
+
+<div class="outcomes">
+  <div class="outcomes-title">— 你将带走 —</div>
+  <div class="outcome-item">
+    <div class="outcome-icon">🌐</div>
+    <div class="outcome-text">
+      <h3>1 个可访问网站</h3>
+      <p>AI 辅助建站，现场部署上线</p>
+    </div>
+  </div>
+  <div class="outcome-item">
+    <div class="outcome-icon">📋</div>
+    <div class="outcome-text">
+      <h3>1 套 AI 建站 SOP</h3>
+      <p>标准化流程，课后可复制</p>
+    </div>
+  </div>
+  <div class="outcome-item">
+    <div class="outcome-icon">🤖</div>
+    <div class="outcome-text">
+      <h3>1 个专属 Agent</h3>
+      <p>你的 AI 助手，能跑通的智能体</p>
+    </div>
+  </div>
+</div>
+
+<div class="audience">
+  <div class="audience-title">适合人群</div>
+  <div class="tags">
+    <span class="tag">有基础想升级</span>
+    <span class="tag">想造产品</span>
+    <span class="tag">想建网站</span>
+  </div>
+</div>
+
+<div class="cta-area">
+  <a class="cta-btn">立即报名 →</a>
+  <div class="cta-sub">从"用工具"升级到"造产品"</div>
+</div>
+
+<div class="footer">
+  <div class="footer-note">未来 AI 实战训练营 · 10/1 国庆首期</div>
+</div>
+</body>
+</html>

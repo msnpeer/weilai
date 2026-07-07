@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>未来 AI 实战训练营 — 从会用到能造</title>
+<style>
+/* ===== 品牌色系 ===== */
+:root {
+  --blue: #2563EB;
+  --blue-light: #3B82F6;
+  --black: #0F172A;
+  --white: #FFFFFF;
+  --gray-bg: #F1F5F9;
+  --gray-text: #94A3B8;
+  --orange: #F59E0B;
+  --green: #10B981;
+  --green-light: #22C55E;
+  --purple: #8B5CF6;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: "PingFang SC", "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.6;
+}
+a { color: var(--blue); text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ===== Utilities ===== */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 80px 0; }
+.section-title {
+  font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-sub { text-align: center; color: var(--gray-text); font-size: 1.1rem; margin-bottom: 48px; }
+
+/* ===== Hero ===== */
+.hero {
+  background: linear-gradient(160deg, var(--black) 0%, #1E293B 100%);
+  color: var(--white);
+  padding: 100px 0 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(37,99,235,0.15), transparent 60%);
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  position: relative;
+}
+.hero h1 span { color: var(--blue-light); }
+.hero .tagline {
+  font-size: 1.25rem; color: #CBD5E1; max-width: 640px; margin: 0 auto 36px;
+  position: relative;
+}
+.hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+.btn {
+  display: inline-block; padding: 14px 36px; border-radius: 8px;
+  font-size: 1.1rem; font-weight: 700; cursor: pointer; border: none;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.btn-primary { background: var(--blue); color: var(--white); }
+.btn-orange { background: var(--orange); color: var(--black); }
+
+/* ===== Stats bar ===== */
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 24px; margin-top: 48px;
+}
+.stat { text-align: center; }
+.stat .num { font-size: 2.4rem; font-weight: 900; color: var(--blue-light); }
+.stat .label { font-size: .9rem; color: #94A3B8; margin-top: 4px; }
+
+/* ===== Problems ===== */
+.problems { background: var(--gray-bg); }
+.problem-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.problem-card {
+  background: var(--white); border-radius: 12px; padding: 28px;
+  border-left: 4px solid #EF4444;
+}
+.problem-card .icon { font-size: 2rem; margin-bottom: 12px; }
+.problem-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.problem-card p { font-size: .95rem; color: #475569; }
+
+/* ===== 三阶产品 ===== */
+.tiers { background: var(--white); }
+.tier-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+}
+.tier-card {
+  border-radius: 16px; padding: 36px 28px; position: relative;
+  background: var(--white); border: 2px solid #E2E8F0;
+  transition: transform .2s, box-shadow .2s;
+}
+.tier-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.08); }
+.tier-card .badge {
+  display: inline-block; padding: 4px 14px; border-radius: 20px;
+  font-size: .8rem; font-weight: 700; color: var(--white); margin-bottom: 16px;
+}
+.tier-card.t1 .badge { background: var(--green); }
+.tier-card.t2 .badge { background: var(--blue-light); }
+.tier-card.t3 .badge { background: var(--purple); }
+.tier-card .t-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+.tier-card .t-time { font-size: .9rem; color: var(--gray-text); margin-bottom: 16px; }
+.tier-card .t-desc { font-size: .95rem; color: #475569; margin-bottom: 20px; }
+.tier-card .t-results { list-style: none; padding: 0; }
+.tier-card .t-results li {
+  padding: 6px 0; font-size: .95rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.tier-card .t-results li::before {
+  content: '✅'; font-size: .85rem;
+}
+.tier-card .t-price {
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid #E2E8F0;
+  font-size: 1.1rem; font-weight: 700; color: var(--orange);
+}
+
+/* ===== 对比表 ===== */
+.compare { background: var(--gray-bg); }
+table.compare-table {
+  width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden;
+}
+table.compare-table th, table.compare-table td {
+  padding: 14px 18px; text-align: left; font-size: .95rem;
+}
+table.compare-table thead th {
+  background: var(--black); color: var(--white); font-weight: 700;
+}
+table.compare-table tbody tr:nth-child(even) { background: var(--white); }
+table.compare-table tbody tr:nth-child(odd) { background: #F8FAFC; }
+table.compare-table td:first-child { font-weight: 600; }
+
+/* ===== 成果展示 ===== */
+.results { background: var(--white); }
+.result-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+.result-card {
+  background: linear-gradient(135deg, #EFF6FF, #F5F3FF);
+  border-radius: 12px; padding: 28px; text-align: center;
+}
+.result-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
+.result-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.result-card p { font-size: .9rem; color: #475569; }
+
+/* ===== 双赛道 ===== */
+.tracks { background: var(--gray-bg); }
+.track-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+}
+@media (max-width: 768px) { .track-grid { grid-template-columns: 1fr; } }
+.track-card {
+  background: var(--white); border-radius: 16px; padding: 36px 28px;
+  border-top: 4px solid var(--blue);
+}
+.track-card.track-youth { border-top-color: var(--green); }
+.track-card.track-adult { border-top-color: var(--blue); }
+.track-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 12px; }
+.track-card .t-desc { font-size: .95rem; color: #475569; margin-bottom: 16px; }
+.track-card ul { list-style: none; padding: 0; }
+.track-card ul li { padding: 5px 0; font-size: .95rem; }
+.track-card ul li::before { content: '•'; color: var(--blue); font-weight: 700; margin-right: 8px; }
+
+/* ===== 城市合伙人 ===== */
+.partner { background: var(--white); }
+.partner-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.partner-card {
+  background: var(--gray-bg); border-radius: 12px; padding: 28px;
+  text-align: center;
+}
+.partner-card .p-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.partner-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+.partner-card p { font-size: .9rem; color: #475569; }
+
+/* ===== CTA ===== */
+.cta-section {
+  background: linear-gradient(135deg, var(--black) 0%, #1E293B 100%);
+  color: var(--white);
+  text-align: center;
+  padding: 80px 0;
+}
+.cta-section h2 {
+  font-size: 2rem; font-weight: 800; margin-bottom: 16px;
+}
+.cta-section p {
+  font-size: 1.1rem; color: #CBD5E1; max-width: 560px; margin: 0 auto 32px;
+}
+
+/* ===== Footer ===== */
+footer {
+  background: var(--black); color: #94A3B8; padding: 40px 0;
+  text-align: center; font-size: .85rem;
+}
+footer .company { margin-bottom: 8px; font-weight: 600; color: #CBD5E1; }
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .section { padding: 56px 0; }
+  .section-title { font-size: 1.5rem; }
+  .tier-grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <h1>人手一台 MacBook<br>全程实操，带走<span>真实成品</span></h1>
+    <p class="tagline">不教空理论，只教你真正能用的 AI。从会用工具，到做出产品，再到搭建系统。</p>
+    <div class="cta-group">
+      <a href="#signup" class="btn btn-orange">立即报名</a>
+      <a href="#tiers" class="btn btn-primary">了解课程</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">3</div><div class="label">阶段递进</div></div>
+      <div class="stat"><div class="num">6</div><div class="label">天总课时</div></div>
+      <div class="stat"><div class="num">7+</div><div class="label">AI 工具实操</div></div>
+      <div class="stat"><div class="num">100%</div><div class="label">动手实操率</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 痛点 ===== -->
+<section class="section problems">
+  <div class="container">
+    <h2 class="section-title">你是不是也遇到了这些问题？</h2>
+    <p class="section-sub">听过 AI 一万次，却从没亲手用 AI 做出过一个东西</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="icon">🤯</div>
+        <h3>工具太多，不知道从哪开始</h3>
+        <p>ChatGPT、豆包、DeepSeek、Claude……名字都认识，但不知道哪个该干什么。</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">📖</div>
+        <h3>学了一堆理论，还是不会用</h3>
+        <p>看了无数视频和文章，到自己动手的时候，一片空白。</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">⏳</div>
+        <h3>工作忙，没有时间自己摸索</h3>
+        <p>每天加班到很晚，想学 AI 但没有系统路径，东一下西一下。</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">🤷</div>
+        <h3>不确定 AI 能不能真的帮到我</h3>
+        <p>周围人都在说 AI 很厉害，但我还没感受到它跟我的关系。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 三阶产品 ===== -->
+<section class="section tiers" id="tiers">
+  <div class="container">
+    <h2 class="section-title">三阶课程，从入门到系统</h2>
+    <p class="section-sub">不跳级，不灌水，每一阶都有真实成果</p>
+    <div class="tier-grid">
+      <div class="tier-card t1">
+        <span class="badge">一阶</span>
+        <div class="t-name">AI 破界营</div>
+        <div class="t-time">📅 1 天 · 7 小时实操</div>
+        <div class="t-desc">如果你还停留在"听说 AI 很厉害"，那这一天会让你第一次真正把 AI 用起来。</div>
+        <ul class="t-results">
+          <li>1 个 AI 原创海报</li>
+          <li>1 条 30 秒 AI 短视频</li>
+          <li>1 套个人提示词模板</li>
+        </ul>
+        <div class="t-price">适合：零基础入门</div>
+      </div>
+      <div class="tier-card t2">
+        <span class="badge">二阶</span>
+        <div class="t-name">AI 造物营</div>
+        <div class="t-time">📅 2 天 · 14 小时实操</div>
+        <div class="t-desc">不是只会问 AI，而是学会把一个想法变成真正能打开、能展示、能分享的作品。</div>
+        <ul class="t-results">
+          <li>1 个可访问的真实网站</li>
+          <li>1 套 AI 辅助建站 SOP</li>
+          <li>1 个能跑通的专属 Agent</li>
+        </ul>
+        <div class="t-price">适合：想造产品的你</div>
+      </div>
+      <div class="tier-card t3">
+        <span class="badge">三阶</span>
+        <div class="t-name">AI 掌舵营</div>
+        <div class="t-time">📅 3 天 · 21 小时实操</div>
+        <div class="t-desc">从做一个作品，升级到搭一套会持续工作的系统。你将成为团队里最懂 AI 落地的人。</div>
+        <ul class="t-results">
+          <li>1 套结构化知识库</li>
+          <li>1 个自动化脚本或工具</li>
+          <li>1 套 AI 系统落地方案</li>
+        </ul>
+        <div class="t-price">适合：想搭建系统的你</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 对比表 ===== -->
+<section class="section compare">
+  <div class="container">
+    <h2 class="section-title">我们和普通 AI 课程有什么不同？</h2>
+    <p class="section-sub">我们是实战派，不是知识理论派</p>
+    <table class="compare-table">
+      <thead>
+        <tr><th>维度</th><th>普通 AI 课程</th><th>未来 AI 实战训练营</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>教学方式</td><td>老师讲，学生听</td><td>老师演示，学生实操</td></tr>
+        <tr><td>学习成果</td><td>学了一堆概念</td><td>带走真实成品</td></tr>
+        <tr><td>课后效果</td><td>课上热闹，课后不会</td><td>离场后还能继续用</td></tr>
+        <tr><td>工具覆盖</td><td>学一个工具</td><td>掌握一套工具流</td></tr>
+        <tr><td>设备支持</td><td>自带电脑或无实操</td><td>人手一台 MacBook</td></tr>
+        <tr><td>赛道适配</td><td>一套内容打天下</td><td>青少年 / 成人双赛道</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 成果展示 ===== -->
+<section class="section results">
+  <div class="container">
+    <h2 class="section-title">你将带走的真实成果</h2>
+    <p class="section-sub">不是笔记，不是截图，是真正可以展示、使用、分享的作品</p>
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="icon">🖼️</div>
+        <h3>AI 原创海报</h3>
+        <p>用 AI 工具从零生成，可直接用于社交媒体发布</p>
+      </div>
+      <div class="result-card">
+        <div class="icon">🎬</div>
+        <h3>AI 短视频</h3>
+        <p>30 秒完整视频，含配音、字幕、画面</p>
+      </div>
+      <div class="result-card">
+        <div class="icon">🌐</div>
+        <h3>个人网站</h3>
+        <p>真实可访问的网站，别人打开就能看</p>
+      </div>
+      <div class="result-card">
+        <div class="icon">🤖</div>
+        <h3>专属 Agent</h3>
+        <p>能理解你需求、能跑通的 AI 助手</p>
+      </div>
+      <div class="result-card">
+        <div class="icon">📚</div>
+        <h3>知识库</h3>
+        <p>结构化、可检索、可复用的知识系统</p>
+      </div>
+      <div class="result-card">
+        <div class="icon">⚡</div>
+        <h3>自动化脚本</h3>
+        <p>真正能替你干活的工具和流程</p>
+      </div>
+      <div class="result-card">
+        <div class="icon">📋</div>
+        <h3>提示词模板</h3>
+        <p>即拿即用的高效提示词库</p>
+      </div>
+      <div class="result-card">
+        <div class="icon">🗺️</div>
+        <h3>系统方案</h3>
+        <p>可落地的 AI 系统化落地方案</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 双赛道 ===== -->
+<section class="section tracks">
+  <div class="container">
+    <h2 class="section-title">双赛道，更懂你</h2>
+    <p class="section-sub">同一套课程体系，青少年与成人各有侧重</p>
+    <div class="track-grid">
+      <div class="track-card track-youth">
+        <h3>🎓 青少年赛道</h3>
+        <div class="t-desc">更早接触 AI，建立面向未来的核心竞争力</div>
+        <ul>
+          <li>用 AI 辅助学习和创意表达</li>
+          <li>培养 AI 时代的思维方式</li>
+          <li>项目作品可作为升学加分项</li>
+          <li>案例更贴近校园和兴趣场景</li>
+        </ul>
+      </div>
+      <div class="track-card track-adult">
+        <h3>💼 成人赛道</h3>
+        <div class="t-desc">解决真实工作问题，用 AI 立刻提升效率</div>
+        <ul>
+          <li>用 AI 解决实际工作中的痛点</li>
+          <li>掌握可落地的工具和流程</li>
+          <li>从个人效率到团队系统化</li>
+          <li>案例更贴近职场和商业场景</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 城市合伙人 ===== -->
+<section class="section partner" id="partner">
+  <div class="container">
+    <h2 class="section-title">城市合伙人招募</h2>
+    <p class="section-sub">总部赋能 + 本地落地，共建 AI 教育版图</p>
+    <div class="partner-grid">
+      <div class="partner-card">
+        <div class="p-icon">💰</div>
+        <h3>资金合伙人</h3>
+        <p>现金投入，共享品牌收益与分红权益</p>
+      </div>
+      <div class="partner-card">
+        <div class="p-icon">🏫</div>
+        <h3>资源合伙人</h3>
+        <p>提供学校、机构、场地、渠道等本地资源</p>
+      </div>
+      <div class="partner-card">
+        <div class="p-icon">🏃</div>
+        <h3>运营合伙人</h3>
+        <p>负责本地执行、招生推广、学员服务</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:32px;color:#475569;">
+      首批试点城市：<strong>山东 · 重庆 · 珠海 · 海南</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section" id="signup">
+  <div class="container">
+    <h2>10 月 1 日 · 国庆首期开营</h2>
+    <p>名额有限，先到先得。扫码或点击下方按钮，获取最新课程信息与报名通道。</p>
+    <a href="#" class="btn btn-orange" style="font-size:1.2rem;padding:16px 48px;">立即咨询报名</a>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="container">
+    <div class="company">未来基石数字科技（海南）有限公司</div>
+    <div>© 2026 未来 AI 实战训练营 · All Rights Reserved</div>
+  </div>
+</footer>
+
+</body>
+</html>

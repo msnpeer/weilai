@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>未来AI实战训练营 · 主视觉海报</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  min-height: 1920px;
+  background: linear-gradient(180deg, #0F172A 0%, #1E293B 40%, #0F172A 100%);
+  font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 50px;
+  position: relative;
+  overflow: hidden;
+}
+/* 背景装饰 */
+body::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+body::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+/* 网格底纹 */
+.grid-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    linear-gradient(rgba(37,99,235,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+/* 品牌区 */
+.brand {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+.brand-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #2563EB, #3B82F6);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 36px;
+  font-weight: 900;
+  box-shadow: 0 8px 32px rgba(37,99,235,0.4);
+}
+.brand-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #94A3B8;
+  letter-spacing: 12px;
+}
+/* 标题区 */
+.title-area {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
+}
+.main-title {
+  font-size: 72px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #FFFFFF 0%, #93C5FD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.sub-title {
+  font-size: 32px;
+  font-weight: 500;
+  color: #CBD5E1;
+  line-height: 1.5;
+}
+/* 三阶色条 */
+.tier-bar {
+  display: flex;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+.tier-bar div { flex: 1; }
+.tier-green { background: linear-gradient(90deg, #10B981, #34D399); }
+.tier-blue { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+.tier-purple { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+/* 核心卖点 */
+.sellpoints {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 60px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+.sellpoint-card {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 36px 24px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+.sp-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+.sp-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.sp-desc {
+  font-size: 18px;
+  color: #94A3B8;
+}
+/* 信任背书 */
+.trust {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  color: #CBD5E1;
+}
+.trust-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(37,99,235,0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+/* CTA区 */
+.cta-area {
+  text-align: center;
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+}
+.cta-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #F59E0B, #FBBF24);
+  color: #0F172A;
+  font-size: 32px;
+  font-weight: 800;
+  padding: 24px 80px;
+  border-radius: 60px;
+  text-decoration: none;
+  box-shadow: 0 8px 32px rgba(245,158,11,0.4);
+  margin-bottom: 24px;
+}
+.cta-sub {
+  font-size: 20px;
+  color: #94A3B8;
+}
+/* 底部 */
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.footer-tag {
+  display: inline-block;
+  background: rgba(37,99,235,0.15);
+  border: 1px solid rgba(37,99,235,0.3);
+  color: #93C5FD;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 30px;
+  margin: 0 8px;
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<div class="brand">
+  <div class="brand-icon">未</div>
+  <div class="brand-name">未 来</div>
+</div>
+
+<div class="title-area">
+  <div class="main-title">AI 实战训练营</div>
+  <div class="sub-title">人手一台 MacBook，全程实操，带走真实成品</div>
+</div>
+
+<div class="tier-bar">
+  <div class="tier-green"></div>
+  <div class="tier-blue"></div>
+  <div class="tier-purple"></div>
+</div>
+
+<div class="sellpoints">
+  <div class="sellpoint-card">
+    <div class="sp-icon">🎨</div>
+    <div class="sp-title">1天出成果</div>
+    <div class="sp-desc">做出 AI 海报 + 短视频</div>
+  </div>
+  <div class="sellpoint-card">
+    <div class="sp-icon">💻</div>
+    <div class="sp-title">零门槛实操</div>
+    <div class="sp-desc">现场统一提供设备</div>
+  </div>
+  <div class="sellpoint-card">
+    <div class="sp-icon">👥</div>
+    <div class="sp-title">小班精英制</div>
+    <div class="sp-desc">名额有限 先到先得</div>
+  </div>
+</div>
+
+<div class="trust">
+  <div class="trust-item">
+    <div class="trust-icon">✅</div>
+    <span>零基础可参加</span>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">✅</div>
+    <span>现场统一设备</span>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">✅</div>
+    <span>带走真实成品</span>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">✅</div>
+    <span>双赛道适配</span>
+  </div>
+</div>
+
+<div class="cta-area">
+  <a class="cta-btn">立即报名 →</a>
+  <div class="cta-sub">扫码报名 / 私信了解</div>
+</div>
+
+<div class="footer">
+  <span class="footer-tag">📅 10/1 国庆首期</span>
+  <span class="footer-tag">🎯 三阶递进体系</span>
+  <span class="footer-tag">🏆 青少年 / 成人双赛道</span>
+</div>
+</body>
+</html>

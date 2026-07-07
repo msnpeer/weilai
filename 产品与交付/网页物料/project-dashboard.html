@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>未来AI实战训练营 · 项目看板</title>
+<style>
+  :root {
+    --blue: #2563EB;
+    --blue-light: #3B82F6;
+    --green: #10B981;
+    --yellow: #F59E0B;
+    --red: #EF4444;
+    --purple: #8B5CF6;
+    --dark: #0F172A;
+    --dark2: #1E293B;
+    --dark3: #334155;
+    --text: #F1F5F9;
+    --text-dim: #94A3B8;
+    --card: #1E293B;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--dark); color: var(--text); min-height: 100vh; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  .header { text-align: center; padding: 40px 0 30px; }
+  .header h1 { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--blue), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header .subtitle { color: var(--text-dim); margin-top: 8px; font-size: 0.95rem; }
+  .header .update-time { color: var(--text-dim); font-size: 0.8rem; margin-top: 4px; }
+
+  /* Countdown */
+  .countdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-bottom: 30px; }
+  .countdown-card { background: var(--card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid var(--dark3); }
+  .countdown-card .number { font-size: 2.5rem; font-weight: 800; }
+  .countdown-card .label { font-size: 0.8rem; color: var(--text-dim); margin-top: 4px; }
+  .countdown-card.active { border-color: var(--blue); box-shadow: 0 0 20px rgba(37,99,235,0.2); }
+  .countdown-card.active .number { color: var(--blue); }
+
+  /* Section */
+  .section { margin-bottom: 30px; }
+  .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-title .icon { font-size: 1.2rem; }
+
+  /* Decision Cards */
+  .decisions { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+  .decision-card { background: var(--card); border-radius: 12px; padding: 20px; border-left: 4px solid; }
+  .decision-card.blocker { border-left-color: var(--red); }
+  .decision-card.important { border-left-color: var(--yellow); }
+  .decision-card.done { border-left-color: var(--green); }
+  .decision-card.optional { border-left-color: var(--dark3); }
+  .decision-card .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .decision-card .card-title { font-weight: 700; font-size: 1rem; }
+  .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+  .badge-red { background: rgba(239,68,68,0.2); color: var(--red); }
+  .badge-yellow { background: rgba(245,158,11,0.2); color: var(--yellow); }
+  .badge-green { background: rgba(16,185,129,0.2); color: var(--green); }
+  .badge-gray { background: rgba(148,163,184,0.15); color: var(--text-dim); }
+  .decision-card .card-body { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
+  .decision-card .card-body strong { color: var(--text); }
+  .decision-card .deadline { margin-top: 10px; font-size: 0.8rem; color: var(--yellow); font-weight: 600; }
+  .decision-card .deadline.urgent { color: var(--red); }
+
+  /* Progress Bars */
+  .progress-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .progress-item { background: var(--card); border-radius: 12px; padding: 20px; }
+  .progress-item .item-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .progress-item .item-label { font-weight: 600; font-size: 0.9rem; }
+  .progress-item .item-value { font-size: 0.85rem; color: var(--text-dim); }
+  .progress-bar { height: 8px; background: var(--dark3); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+  .progress-fill.green { background: linear-gradient(90deg, var(--green), #34D399); }
+  .progress-fill.blue { background: linear-gradient(90deg, var(--blue), var(--blue-light)); }
+  .progress-fill.yellow { background: linear-gradient(90deg, var(--yellow), #FBBF24); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--dark3); }
+  .timeline-item { position: relative; margin-bottom: 20px; padding: 16px 20px; background: var(--card); border-radius: 12px; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 20px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--dark3); background: var(--dark); }
+  .timeline-item.active::before { border-color: var(--blue); background: var(--blue); box-shadow: 0 0 8px rgba(37,99,235,0.5); }
+  .timeline-item.done::before { border-color: var(--green); background: var(--green); }
+  .timeline-item .tl-date { font-size: 0.75rem; color: var(--text-dim); font-weight: 600; }
+  .timeline-item .tl-title { font-size: 0.95rem; font-weight: 700; margin-top: 4px; }
+  .timeline-item .tl-desc { font-size: 0.8rem; color: var(--text-dim); margin-top: 4px; line-height: 1.5; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 30px; }
+  .stat { background: var(--card); border-radius: 12px; padding: 16px; text-align: center; }
+  .stat .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--blue); }
+  .stat .stat-label { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; }
+
+  /* Action Box */
+  .action-box { background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(139,92,246,0.15)); border: 1px solid rgba(37,99,235,0.3); border-radius: 12px; padding: 24px; }
+  .action-box h3 { font-size: 1.1rem; margin-bottom: 12px; color: var(--blue-light); }
+  .action-list { list-style: none; }
+  .action-list li { padding: 8px 0; font-size: 0.9rem; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+  .action-list li::before { content: '→'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+
+  /* Risk Indicator */
+  .risk-meter { display: flex; align-items: center; gap: 12px; background: var(--card); border-radius: 12px; padding: 16px 20px; margin-bottom: 30px; }
+  .risk-meter .risk-label { font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+  .risk-bar { flex: 1; height: 12px; background: var(--dark3); border-radius: 6px; overflow: hidden; position: relative; }
+  .risk-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--green), var(--yellow), var(--red)); transition: width 1s ease; }
+  .risk-text { font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+
+  /* Doc Grid */
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+  .doc-tag { background: var(--card); border-radius: 8px; padding: 10px 14px; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; border: 1px solid var(--dark3); }
+  .doc-tag .doc-icon { font-size: 1rem; }
+  .doc-tag .doc-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .doc-tag .doc-status { color: var(--green); font-size: 0.75rem; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 40px 0 20px; color: var(--text-dim); font-size: 0.8rem; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header h1 { font-size: 1.5rem; }
+    .countdown { grid-template-columns: repeat(3, 1fr); }
+    .decisions { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>🚀 未来AI实战训练营 · 项目看板</h1>
+    <div class="subtitle">未来基石数字科技（海南）有限公司</div>
+    <div class="update-time">自动更新 · 第39轮迭代 · 46份文档 · ~39万字</div>
+  </div>
+
+  <!-- Countdown -->
+  <div class="countdown" id="countdown">
+    <div class="countdown-card active">
+      <div class="number" id="cd-total">—</div>
+      <div class="label">距10/1开营</div>
+    </div>
+    <div class="countdown-card">
+      <div class="number" id="cd-lecturer">—</div>
+      <div class="label">讲师确认DDL</div>
+    </div>
+    <div class="countdown-card">
+      <div class="number" id="cd-decision">—</div>
+      <div class="label">最佳决策日</div>
+    </div>
+    <div class="countdown-card">
+      <div class="number" id="cd-enroll">—</div>
+      <div class="label">招生启动</div>
+    </div>
+    <div class="countdown-card">
+      <div class="number" id="cd-trial">—</div>
+      <div class="label">试讲排练</div>
+    </div>
+  </div>
+
+  <!-- Risk Meter -->
+  <div class="risk-meter">
+    <span class="risk-label">⚠️ 项目风险</span>
+    <div class="risk-bar">
+      <div class="risk-fill" id="risk-fill" style="width: 65%"></div>
+    </div>
+    <span class="risk-text" id="risk-text" style="color: var(--yellow);">中高 — 决策阻塞中</span>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num">46</div><div class="stat-label">文档产出</div></div>
+    <div class="stat"><div class="stat-num">39</div><div class="stat-label">迭代轮次</div></div>
+    <div class="stat"><div class="stat-num">~39万</div><div class="stat-label">总字数</div></div>
+    <div class="stat"><div class="stat-num">4/8</div><div class="stat-label">决策已确认</div></div>
+    <div class="stat"><div class="stat-num">4城</div><div class="stat-label">试点城市</div></div>
+    <div class="stat"><div class="stat-num">3阶</div><div class="stat-label">产品体系</div></div>
+  </div>
+
+  <!-- Decisions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🎯</span> 决策事项</div>
+    <div class="decisions">
+
+      <div class="decision-card blocker">
+        <div class="card-header">
+          <span class="card-title">🔴 D1 · 讲师团队确认</span>
+          <span class="badge badge-red">阻塞级</span>
+        </div>
+        <div class="card-body">
+          <strong>老板只需回答一个问题：内部讲还是外面找？</strong><br>
+          操作手册已就绪：《讲师候选人推荐清单》+《L1降级方案执行Checklist》<br>
+          L1方案：老板自己讲一阶，毛利率97%，零外部依赖
+        </div>
+        <div class="deadline urgent">⚠️ 最晚 7/11（距今 6 天）— 唯一硬性deadline</div>
+      </div>
+
+      <div class="decision-card blocker">
+        <div class="card-header">
+          <span class="card-title">🔴 D2 · 工具账号注册</span>
+          <span class="badge badge-red">阻塞级</span>
+        </div>
+        <div class="card-body">
+          <strong>15个工具，11个学员自注册（全部免费）</strong><br>
+          操作手册已就绪：《工具账号注册操作手册》<br>
+          费用预估：¥0-200（几乎零成本）
+        </div>
+        <div class="deadline">老板确认启动 → 运营30分钟搞定</div>
+      </div>
+
+      <div class="decision-card important">
+        <div class="card-header">
+          <span class="card-title">🟡 D3 · 首期招生目标</span>
+          <span class="badge badge-yellow">重要级</span>
+        </div>
+        <div class="card-body">
+          <strong>推荐30人（底线20人也能盈利）</strong><br>
+          三场景测算：乐观40人/¥21.6万 · 基准30人/¥16.2万 · 底线20人/¥10.8万<br>
+          首期只开一阶，成本¥1.5-2.3万，毛利率86%+
+        </div>
+        <div class="deadline">可边做边调，不阻塞执行</div>
+      </div>
+
+      <div class="decision-card done">
+        <div class="card-header">
+          <span class="card-title">✅ 定价体系</span>
+          <span class="badge badge-green">已确认</span>
+        </div>
+        <div class="card-body">
+          一阶 青¥6,800/职¥3,980 · 二阶 青¥19,800/职¥9,800 · 三阶 青¥39,800/职¥19,800
+        </div>
+      </div>
+
+      <div class="decision-card done">
+        <div class="card-header">
+          <span class="card-title">✅ 融资方案</span>
+          <span class="badge badge-green">已确认</span>
+        </div>
+        <div class="card-body">
+          首轮30万 · 释放10%股权 · 估值300万
+        </div>
+      </div>
+
+      <div class="decision-card done">
+        <div class="card-header">
+          <span class="card-title">✅ 产品结构</span>
+          <span class="badge badge-green">已确认</span>
+        </div>
+        <div class="card-body">
+          三阶体系 · 双赛道（青少年/成人）· 4城试点（山东/重庆/珠海/海南）
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span> 准备就绪度</div>
+    <div class="progress-grid">
+      <div class="progress-item">
+        <div class="item-header">
+          <span class="item-label">📄 文档产出</span>
+          <span class="item-value">46/46 份</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill green" style="width: 100%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="item-header">
+          <span class="item-label">📚 课程教案</span>
+          <span class="item-value">3/3 阶完成</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill green" style="width: 100%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="item-header">
+          <span class="item-label">🎨 品牌视觉</span>
+          <span class="item-value">VI + 海报 + 落地页</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill green" style="width: 100%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="item-header">
+          <span class="item-label">🤝 合伙人材料</span>
+          <span class="item-value">协议 + BP + PPT + FAQ</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill green" style="width: 100%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="item-header">
+          <span class="item-label">🛠️ 工具账号</span>
+          <span class="item-value">手册就绪 · 待启动</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill yellow" style="width: 50%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="item-header">
+          <span class="item-label">👨‍🏫 讲师团队</span>
+          <span class="item-value">待老板确认方向</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill yellow" style="width: 30%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="item-header">
+          <span class="item-label">📢 招生启动</span>
+          <span class="item-value">策略就绪 · 待执行</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill blue" style="width: 20%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="item-header">
+          <span class="item-label">🏫 开营交付</span>
+          <span class="item-value">SOP就绪 · 10/1</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill blue" style="width: 15%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📅</span> 关键时间线（10/1倒推）</div>
+    <div class="timeline">
+      <div class="timeline-item active">
+        <div class="tl-date">7/5-7/7 · 最佳决策窗口</div>
+        <div class="tl-title">🎯 老板决策：讲师方向 + 工具启动</div>
+        <div class="tl-desc">10分钟搞定3个决定。详见《Boss快速决策卡》。如果搞不定，L1降级方案（老板自己讲）已就绪。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">7/7-7/13 · 工具准备周</div>
+        <div class="tl-title">🛠️ 工具注册 + 讲师筛选</div>
+        <div class="tl-desc">运营按《工具账号注册操作手册》完成15工具注册。按《讲师候选人推荐清单》启动筛选。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">7/14-8/17 · 招生冲刺期</div>
+        <div class="tl-title">📢 5周招生冲刺（目标30人）</div>
+        <div class="tl-desc">按《首期招生目标与策略方案》执行。5渠道并行：合伙人40%/朋友圈25%/公众号15%/转介绍10%/短视频10%。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">8/18-9/14 · 备课排练期</div>
+        <div class="tl-title">👨‍🏫 讲师备课 + 试讲排练</div>
+        <div class="tl-desc">按《首期试讲排练方案》执行。内部试讲→修订→助教培训→最终彩排。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">9/15-9/30 · 最终准备</div>
+        <div class="tl-title">📦 物料打包 + 课前调研</div>
+        <div class="tl-desc">发送《课前学员调研问卷》→ 按《学员分组管理模板》分组 → 物料CheckList核对。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">10/1 · 国庆首期</div>
+        <div class="tl-title">🚀 开营！</div>
+        <div class="tl-desc">按《开营当天执行SOP》逐小时执行。结营后按《课后跟进SOP》48h黄金期跟进。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L1 Backup Plan -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🛡️</span> L1降级方案（保底路径）</div>
+    <div class="action-box">
+      <h3>如果7/11前搞不定讲师 → 老板自己讲</h3>
+      <ul class="action-list">
+        <li><strong>模式：</strong>老板亲自上阵 · 一阶AI破界营 · 15-20人 · 单赛道（成人）· 单城（海南）</li>
+        <li><strong>工具：</strong>仅3个免费工具（豆包 + 即梦AI + Canva），学员课前自注册</li>
+        <li><strong>收入：</strong>15人×¥3,980 = ¥59,700，成本¥1,000-1,800，<strong>毛利率97%</strong></li>
+        <li><strong>优势：</strong>零外部依赖 · 验证模式 · 积累口碑 · 毛利率反而更高</li>
+        <li><strong>操作：</strong>打开《L1降级方案执行Checklist》，7/12开始逐日执行</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Key Docs -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📁</span> 核心文档速查（按使用场景）</div>
+    <div class="doc-grid">
+      <div class="doc-tag"><span class="doc-icon">🎯</span><span class="doc-name">Boss快速决策卡</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">⏰</span><span class="doc-name">项目时间压力分析</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🛡️</span><span class="doc-name">首期降级方案</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📋</span><span class="doc-name">L1降级执行Checklist</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">👨‍🏫</span><span class="doc-name">讲师候选人推荐清单</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🛠️</span><span class="doc-name">工具账号注册手册</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📊</span><span class="doc-name">项目决策看板</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🗺️</span><span class="doc-name">项目全景总览</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📖</span><span class="doc-name">一阶教案-AI破界营</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📖</span><span class="doc-name">二阶教案-AI造物营</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📖</span><span class="doc-name">三阶教案-AI掌舵营</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📢</span><span class="doc-name">招生文案成品</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">💰</span><span class="doc-name">投资招募计划书</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🤝</span><span class="doc-name">城市合作协议模板</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🎨</span><span class="doc-name">品牌VI方案</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🌐</span><span class="doc-name">落地页HTML</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🏷️</span><span class="doc-name">认证体系设计</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🏆</span><span class="doc-name">赛事体系设计</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">👥</span><span class="doc-name">学员社群设计</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📈</span><span class="doc-name">招生数据看板</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">💬</span><span class="doc-name">招生转化话术SOP</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📅</span><span class="doc-name">朋友圈日历排期表</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">🎉</span><span class="doc-name">开营当天执行SOP</span><span class="doc-status">✓</span></div>
+      <div class="doc-tag"><span class="doc-icon">📬</span><span class="doc-name">课后跟进SOP</span><span class="doc-status">✓</span></div>
+    </div>
+  </div>
+
+  <!-- Action Box -->
+  <div class="section">
+    <div class="section-title"><span class="icon">⚡</span> 老板现在该做什么</div>
+    <div class="action-box">
+      <h3>3个决定，10分钟，解锁整个项目 👇</h3>
+      <ul class="action-list">
+        <li><strong>① 讲师方向</strong>（5分钟）：内部自己讲 / 外面找讲师 / 混合模式？<br>如果不确定 → 选L1（老板自己讲），零风险保底</li>
+        <li><strong>② 工具账号</strong>（3分钟）：确认启动注册？费用约¥0-200<br>说一声"启动"，运营30分钟搞定</li>
+        <li><strong>③ 招生目标</strong>（2分钟）：推荐30人，底线20人也能赚<br>不确认也行，边做边调</li>
+      </ul>
+      <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: var(--text-dim);">
+        📎 详细方案：《Boss快速决策卡》· 《项目时间压力分析》· 《首期降级方案》
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>未来AI实战训练营 · 项目看板 · 自动更新</p>
+    <p style="margin-top:4px;">运营主体：未来基石数字科技（海南）有限公司 · 品牌：未来 · 目标：10/1国庆首期</p>
+    <p style="margin-top:8px; color: var(--dark3);">Powered by EntroCamp Auto-Iteration · Round 40</p>
+  </div>
+
+</div>
+
+<script>
+  // Countdown calculation
+  function daysFromNow(target) {
+    const now = new Date();
+    now.setHours(0,0,0,0);
+    const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+    return diff > 0 ? diff : 0;
+  }
+
+  const y = 2026;
+  document.getElementById('cd-total').textContent = daysFromNow(new Date(y, 9, 1)); // 10/1
+  document.getElementById('cd-lecturer').textContent = daysFromNow(new Date(y, 6, 11)); // 7/11
+  document.getElementById('cd-decision').textContent = daysFromNow(new Date(y, 6, 7)); // 7/7
+  document.getElementById('cd-enroll').textContent = daysFromNow(new Date(y, 7, 4)); // 8/4
+  document.getElementById('cd-trial').textContent = daysFromNow(new Date(y, 8, 15)); // 9/15
+
+  // Dynamic risk text
+  const totalDays = daysFromNow(new Date(y, 9, 1));
+  const lecturerDays = daysFromNow(new Date(y, 6, 11));
+  const riskFill = document.getElementById('risk-fill');
+  const riskText = document.getElementById('risk-text');
+
+  if (lecturerDays <= 0) {
+    riskFill.style.width = '90%';
+    riskText.textContent = '🔴 严重 — 讲师确认已过期！';
+    riskText.style.color = 'var(--red)';
+  } else if (lecturerDays <= 3) {
+    riskFill.style.width = '80%';
+    riskText.textContent = '🔴 高 — 讲师DDL迫在眉睫';
+    riskText.style.color = 'var(--red)';
+  } else if (lecturerDays <= 7) {
+    riskFill.style.width = '65%';
+    riskText.textContent = '🟡 中高 — 决策阻塞中';
+    riskText.style.color = 'var(--yellow)';
+  } else {
+    riskFill.style.width = '40%';
+    riskText.textContent = '🟢 正常 — 进度可控';
+    riskText.style.color = 'var(--green)';
+  }
+</script>
+
+</body>
+</html>

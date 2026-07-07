@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI破界营 · 1天学会3个AI工具 · 10/1国庆开营</title>
+<style>
+  :root {
+    --blue: #2563EB; --blue-dark: #1D4ED8; --blue-light: #DBEAFE;
+    --dark: #0F172A; --gray: #64748B; --light: #F8FAFC;
+    --green: #10B981; --green-light: #D1FAE5;
+    --orange: #F59E0B; --orange-light: #FEF3C7;
+    --red: #EF4444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; color: var(--dark); line-height: 1.7; background: var(--light); }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E293B 100%);
+    color: white; padding: 60px 20px 50px; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(37,99,235,0.06) 39px, rgba(37,99,235,0.06) 40px),
+                repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(37,99,235,0.06) 39px, rgba(37,99,235,0.06) 40px);
+  }
+  .hero-content { position: relative; max-width: 680px; margin: 0 auto; }
+  .badge { display: inline-block; background: var(--blue); color: white; padding: 6px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(28px, 6vw, 44px); font-weight: 800; margin-bottom: 16px; }
+  .hero h1 span { color: var(--blue); }
+  .hero p { font-size: 18px; color: #CBD5E1; margin-bottom: 28px; }
+  .hero-meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 30px; }
+  .hero-meta-item { display: flex; align-items: center; gap: 6px; font-size: 15px; color: #94A3B8; }
+  .hero-meta-item svg { width: 18px; height: 18px; fill: var(--blue); }
+
+  /* Countdown */
+  .countdown-bar {
+    background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3);
+    border-radius: 12px; padding: 16px; margin: 20px auto; max-width: 500px;
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+  }
+  .countdown-item { text-align: center; }
+  .countdown-num { font-size: 32px; font-weight: 800; color: var(--blue); display: block; }
+  .countdown-label { font-size: 13px; color: #94A3B8; }
+
+  /* CTA Button */
+  .cta-btn {
+    display: inline-block; background: var(--blue); color: white; padding: 16px 48px;
+    border-radius: 12px; font-size: 18px; font-weight: 700; text-decoration: none;
+    transition: all 0.3s; box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+  }
+  .cta-btn:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.5); }
+  .cta-btn-secondary {
+    display: inline-block; background: transparent; color: white; padding: 14px 36px;
+    border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; font-size: 16px;
+    font-weight: 600; text-decoration: none; margin-top: 12px; transition: all 0.3s;
+  }
+  .cta-btn-secondary:hover { border-color: white; }
+
+  /* Section */
+  .section { padding: 60px 20px; max-width: 800px; margin: 0 auto; }
+  .section-title { font-size: clamp(22px, 4vw, 30px); font-weight: 800; text-align: center; margin-bottom: 12px; }
+  .section-sub { text-align: center; color: var(--gray); margin-bottom: 40px; font-size: 16px; }
+
+  /* Pain points */
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .pain-card {
+    background: white; border-radius: 12px; padding: 24px; border: 1px solid #E2E8F0;
+    transition: all 0.3s;
+  }
+  .pain-card:hover { border-color: var(--blue); box-shadow: 0 4px 15px rgba(37,99,235,0.1); }
+  .pain-icon { font-size: 28px; margin-bottom: 10px; }
+  .pain-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .pain-card p { font-size: 14px; color: var(--gray); }
+
+  /* What you get */
+  .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .result-card {
+    background: white; border-radius: 16px; padding: 28px 20px; text-align: center;
+    border: 2px solid #E2E8F0; transition: all 0.3s;
+  }
+  .result-card:hover { border-color: var(--green); transform: translateY(-4px); }
+  .result-emoji { font-size: 40px; margin-bottom: 12px; }
+  .result-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .result-card p { font-size: 14px; color: var(--gray); }
+
+  /* Comparison */
+  .compare-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+  .compare-table th, .compare-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #E2E8F0; font-size: 15px; }
+  .compare-table th { background: var(--dark); color: white; font-weight: 700; }
+  .compare-table th:first-child { border-radius: 12px 0 0 0; }
+  .compare-table th:last-child { border-radius: 0 12px 0 0; }
+  .compare-table tr:hover { background: var(--blue-light); }
+  .check { color: var(--green); font-weight: 700; }
+  .cross { color: var(--red); }
+
+  /* Pricing */
+  .price-card {
+    background: white; border-radius: 20px; padding: 40px; text-align: center;
+    border: 3px solid var(--blue); max-width: 480px; margin: 0 auto;
+    box-shadow: 0 8px 30px rgba(37,99,235,0.15); position: relative;
+  }
+  .price-tag { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--orange); color: white; padding: 6px 20px; border-radius: 20px; font-size: 14px; font-weight: 700; }
+  .price-amount { font-size: 56px; font-weight: 900; color: var(--blue); margin: 16px 0 4px; }
+  .price-amount span { font-size: 20px; font-weight: 600; }
+  .price-original { font-size: 16px; color: var(--gray); text-decoration: line-through; margin-bottom: 16px; }
+  .price-includes { list-style: none; text-align: left; margin: 20px 0; }
+  .price-includes li { padding: 8px 0; font-size: 15px; border-bottom: 1px solid #F1F5F9; }
+  .price-includes li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+
+  /* FAQ */
+  .faq-item { border-bottom: 1px solid #E2E8F0; padding: 20px 0; }
+  .faq-q { font-size: 16px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q::after { content: '+'; font-size: 24px; color: var(--blue); transition: transform 0.3s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { font-size: 15px; color: var(--gray); margin-top: 12px; display: none; line-height: 1.8; }
+  .faq-item.open .faq-a { display: block; }
+
+  /* Enrollment Form */
+  .enroll-section { background: linear-gradient(135deg, var(--dark) 0%, #1E293B 100%); color: white; padding: 60px 20px; }
+  .enroll-form {
+    max-width: 520px; margin: 0 auto; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 36px;
+  }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #CBD5E1; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08); color: white; font-size: 15px; outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: #64748B; }
+  .form-group select option { background: var(--dark); color: white; }
+  .form-submit {
+    width: 100%; padding: 16px; background: var(--blue); color: white; border: none;
+    border-radius: 12px; font-size: 18px; font-weight: 700; cursor: pointer;
+    transition: all 0.3s; box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+  }
+  .form-submit:hover { background: var(--blue-dark); transform: translateY(-2px); }
+  .form-note { text-align: center; font-size: 13px; color: #64748B; margin-top: 16px; }
+
+  /* Footer */
+  footer { background: var(--dark); color: #64748B; text-align: center; padding: 30px 20px; font-size: 14px; }
+  footer a { color: var(--blue); text-decoration: none; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .hero { padding: 40px 16px 36px; }
+    .section { padding: 40px 16px; }
+    .enroll-form { padding: 24px; }
+    .hero-meta { gap: 12px; }
+    .countdown-bar { gap: 12px; }
+    .countdown-num { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge">🎯 10/1 国庆首期 · 限30人</div>
+    <h1>1天学会<span>3个AI工具</span><br>做出你的第一个AI作品</h1>
+    <p>不讲理论，只练实操。海报、短视频、提示词模板——做完带走。</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
+        1天 · 6小时
+      </div>
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        海南 · 线下
+      </div>
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        零基础可学
+      </div>
+    </div>
+    <div class="countdown-bar">
+      <div class="countdown-item"><span class="countdown-num" id="cd-days">--</span><span class="countdown-label">天</span></div>
+      <div class="countdown-item"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-label">时</span></div>
+      <div class="countdown-item"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-label">分</span></div>
+      <div class="countdown-item"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-label">秒</span></div>
+    </div>
+    <a href="#enroll" class="cta-btn">立即报名 →</a>
+    <br>
+    <a href="#details" class="cta-btn-secondary">了解详情 ↓</a>
+  </div>
+</section>
+
+<!-- Pain Points -->
+<section class="section" id="details">
+  <h2 class="section-title">你是不是也遇到这些问题？</h2>
+  <p class="section-sub">AI 时代已经来了，但大多数人还在观望</p>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-icon">😰</div>
+      <h3>AI 工具太多，不知道从哪学</h3>
+      <p>ChatGPT、Midjourney、Stable Diffusion…每个都听说，一个都不会用</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">📚</div>
+      <h3>看了100个教程，还是不会动手</h3>
+      <p>收藏了一堆视频，但真正坐下来做的时候，第一步就不知道怎么开始</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">💸</div>
+      <h3>怕被割韭菜，交了钱学不到东西</h3>
+      <p>市面上AI培训动辄几千上万，听完课还是不会用</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🤷</div>
+      <h3>学了也不知道能干嘛</h3>
+      <p>知道了AI能做很多事，但不知道跟自己的工作和生活怎么结合</p>
+    </div>
+  </div>
+</section>
+
+<!-- What You Get -->
+<section class="section" style="background: white; max-width: 100%; padding: 60px 20px;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h2 class="section-title">1天下来，你带走这3样东西</h2>
+    <p class="section-sub">不是笔记，是成品。课上做完，课后直接用。</p>
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="result-emoji">🎨</div>
+        <h3>1张AI海报</h3>
+        <p>用即梦AI生成图片，用Canva排版，10分钟出一张专业海报</p>
+      </div>
+      <div class="result-card">
+        <div class="result-emoji">🎬</div>
+        <h3>1条30秒短视频</h3>
+        <p>用AI生成画面+配音，手机就能发布到抖音/小红书</p>
+      </div>
+      <div class="result-card">
+        <div class="result-emoji">📝</div>
+        <h3>1套提示词模板</h3>
+        <p>5个万能提示词模板，回去就能用在写文案、做PPT、回邮件…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section class="section">
+  <h2 class="section-title">和普通AI课程有什么不同？</h2>
+  <p class="section-sub">不讲原理，只练操作。做完就走，带走作品。</p>
+  <table class="compare-table">
+    <tr>
+      <th></th>
+      <th>普通AI课程</th>
+      <th style="color: var(--blue);">AI破界营</th>
+    </tr>
+    <tr>
+      <td><strong>形式</strong></td>
+      <td>老师讲，学员听</td>
+      <td class="check">老师演示一步，学员跟着做一步</td>
+    </tr>
+    <tr>
+      <td><strong>产出</strong></td>
+      <td>笔记本上一堆笔记</td>
+      <td class="check">3个可以直接用的成品</td>
+    </tr>
+    <tr>
+      <td><strong>门槛</strong></td>
+      <td>需要编程/英语基础</td>
+      <td class="check">零基础，会打字就行</td>
+    </tr>
+    <tr>
+      <td><strong>课后</strong></td>
+      <td>听完就忘</td>
+      <td class="check">带走模板+社群持续答疑</td>
+    </tr>
+    <tr>
+      <td><strong>价格</strong></td>
+      <td>动辄5000-20000</td>
+      <td class="check">3980元，含全部材料</td>
+    </tr>
+  </table>
+</section>
+
+<!-- Pricing -->
+<section class="section">
+  <h2 class="section-title">投资自己，只需一天</h2>
+  <p class="section-sub">一天时间 + 3980元 = 3个AI技能 + 3个成品 + 1套模板</p>
+  <div class="price-card">
+    <div class="price-tag">🔥 首期特惠</div>
+    <h3 style="font-size: 22px; margin-top: 8px;">AI 破界营 · 成人版</h3>
+    <div class="price-amount"><span>¥</span>3,980</div>
+    <div class="price-original">原价 ¥5,980</div>
+    <ul class="price-includes">
+      <li>1天线下实操课程（6小时有效教学）</li>
+      <li>3个AI工具手把手教学（豆包 + 即梦AI + Canva）</li>
+      <li>3个作品现场完成（海报 + 短视频 + 提示词模板）</li>
+      <li>课程材料包（提示词手册 + 工具速查卡）</li>
+      <li>课后社群答疑（30天）</li>
+      <li>AI创作新星认证证书（L1）</li>
+    </ul>
+    <a href="#enroll" class="cta-btn" style="display: block; text-align: center;">立即锁定名额 →</a>
+    <p style="margin-top: 12px; font-size: 13px; color: var(--gray);">⚠️ 首期限30人，报满即止</p>
+  </div>
+</section>
+
+<!-- Target Audience -->
+<section class="section" style="background: white; max-width: 100%; padding: 60px 20px;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h2 class="section-title">这门课适合谁？</h2>
+    <div class="pain-grid" style="margin-top: 30px;">
+      <div class="pain-card" style="border-left: 4px solid var(--blue);">
+        <h3>💼 职场人</h3>
+        <p>想用AI提升工作效率，做PPT、写报告、处理数据更高效</p>
+      </div>
+      <div class="pain-card" style="border-left: 4px solid var(--green);">
+        <h3>📱 自媒体人</h3>
+        <p>想用AI批量出图、出视频，降低内容创作成本</p>
+      </div>
+      <div class="pain-card" style="border-left: 4px solid var(--orange);">
+        <h3>🏢 企业老板</h3>
+        <p>想了解AI能做什么，找到AI落地自己的业务的切入点</p>
+      </div>
+      <div class="pain-card" style="border-left: 4px solid #8B5CF6;">
+        <h3>🎓 想转行的人</h3>
+        <p>想进入AI领域，但不知道从哪开始，需要一个入门跳板</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <h2 class="section-title">常见问题</h2>
+  <div style="max-width: 680px; margin: 0 auto;">
+    <div class="faq-item open">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">我完全不懂AI，能学会吗？</div>
+      <div class="faq-a">完全没问题。这门课专门为零基础设计，从注册账号开始教。你只需要会打字、会用鼠标就行。讲师会演示一步，你跟着做一步，确保每个人都能跟上。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">需要带什么设备？</div>
+      <div class="faq-a">自带笔记本电脑即可（Windows或Mac都行）。我们提供Wi-Fi和电源。如果没有笔记本，请提前联系我们，我们可以协助安排。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">AI工具需要付费吗？</div>
+      <div class="faq-a">不需要。课程使用的3个工具（豆包、即梦AI、Canva）都有免费版，完全够用。我们选择这些工具就是因为免费+好用。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">上课时间是什么时候？</div>
+      <div class="faq-a">10月1日（国庆节），9:00-16:00，含1小时午餐时间。一天搞定，不耽误假期其他安排。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">学完之后还能继续学吗？</div>
+      <div class="faq-a">当然！破界营是一阶课程，学完后可以继续报名二阶「AI造物营」（2天，学建站和Agent）和三阶「AI掌舵营」（3天，学搭建AI系统）。我们有完整的进阶路径。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">可以退款吗？</div>
+      <div class="faq-a">开营前7天可全额退款，开营前3天可退50%。我们对课程质量有信心，但也会尊重你的选择。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Enrollment Form -->
+<section class="enroll-section" id="enroll">
+  <h2 class="section-title" style="color: white;">立即报名</h2>
+  <p class="section-sub" style="color: #94A3B8;">填写信息，锁定名额。我们会在24小时内联系你确认。</p>
+  <form class="enroll-form" id="enrollForm" onsubmit="handleSubmit(event)">
+    <div class="form-group">
+      <label>你的姓名 *</label>
+      <input type="text" name="name" placeholder="请输入真实姓名" required>
+    </div>
+    <div class="form-group">
+      <label>手机号 *</label>
+      <input type="tel" name="phone" placeholder="请输入手机号" required pattern="[0-9]{11}">
+    </div>
+    <div class="form-group">
+      <label>微信号</label>
+      <input type="text" name="wechat" placeholder="方便我们拉你进学员群（选填）">
+    </div>
+    <div class="form-group">
+      <label>你的身份 *</label>
+      <select name="role" required>
+        <option value="">请选择</option>
+        <option value="职场人">职场人</option>
+        <option value="自媒体人">自媒体人/创作者</option>
+        <option value="企业老板">企业老板/管理者</option>
+        <option value="学生">学生</option>
+        <option value="自由职业">自由职业者</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>你最想用AI做什么？</label>
+      <textarea name="goal" rows="3" placeholder="比如：做海报、写文案、剪视频、提高工作效率…（选填，帮我们更好地准备课程）"></textarea>
+    </div>
+    <div class="form-group">
+      <label>
+        <input type="checkbox" name="agree" required style="width: auto; margin-right: 8px;">
+        我已阅读并同意课程安排和退款政策
+      </label>
+    </div>
+    <button type="submit" class="form-submit">提交报名 →</button>
+    <p class="form-note">🔒 你的信息仅用于课程服务，不会泄露给第三方</p>
+  </form>
+  <div id="successMsg" style="display: none; text-align: center; max-width: 520px; margin: 0 auto;">
+    <div style="font-size: 64px; margin-bottom: 16px;">🎉</div>
+    <h3 style="font-size: 24px; margin-bottom: 12px;">报名成功！</h3>
+    <p style="color: #94A3B8; font-size: 16px; margin-bottom: 24px;">
+      我们会在24小时内通过你填写的手机号联系你确认。<br>
+      也可以先加微信：<strong style="color: var(--blue);">EntroCamp2026</strong>
+    </p>
+    <a href="#" onclick="location.reload(); return false;" class="cta-btn-secondary" style="border-color: var(--blue); color: var(--blue);">返回首页</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p style="margin-bottom: 8px;"><strong style="color: white;">未来AI实战训练营</strong></p>
+  <p>运营主体：未来基石数字科技（海南）有限公司</p>
+  <p style="margin-top: 8px;">咨询微信：EntroCamp2026 ｜ 咨询电话：待填写</p>
+  <p style="margin-top: 16px; font-size: 12px;">© 2026 未来AI · All Rights Reserved</p>
+</footer>
+
+<script>
+// Countdown to Oct 1, 2026
+function updateCountdown() {
+  const target = new Date('2026-10-01T09:00:00+08:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '0';
+    document.getElementById('cd-hours').textContent = '0';
+    document.getElementById('cd-mins').textContent = '0';
+    document.getElementById('cd-secs').textContent = '0';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = d;
+  document.getElementById('cd-hours').textContent = h;
+  document.getElementById('cd-mins').textContent = m;
+  document.getElementById('cd-secs').textContent = s;
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Form submission
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('enrollForm');
+  const data = new FormData(form);
+  const entries = {};
+  for (const [k, v] of data.entries()) entries[k] = v;
+
+  // Build WeChat message
+  const msg = [
+    '📮 新报名：',
+    '姓名：' + entries.name,
+    '手机：' + entries.phone,
+    '微信：' + (entries.wechat || '未填'),
+    '身份：' + entries.role,
+    '目标：' + (entries.goal || '未填'),
+    '时间：' + new Date().toLocaleString('zh-CN')
+  ].join('\n');
+
+  // Log to console (in production, send to backend)
+  console.log('=== 报名数据 ===');
+  console.log(msg);
+  console.log('===============');
+
+  // Store locally
+  const submissions = JSON.parse(localStorage.getItem('enrollments') || '[]');
+  submissions.push({ ...entries, timestamp: new Date().toISOString() });
+  localStorage.setItem('enrollments', JSON.stringify(submissions));
+
+  // Show success
+  form.style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+
+  // Copy to clipboard for easy sharing
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(msg).catch(() => {});
+  }
+}
+</script>
+
+</body>
+</html>
