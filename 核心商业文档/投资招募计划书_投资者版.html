@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>未来 AI 实战训练营 · 投资招募计划书</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>⚡</text></svg>">
+<style>
+:root{
+  --bg:#060b1a;--surface:#0d1326;--card:rgba(13,19,38,0.7);
+  --border:rgba(74,158,255,0.12);--accent:#4a9eff;--gold:#ffd700;
+  --text:#cdd6f0;--muted:#7f8ea8;--dim:#4a5568;
+  --glow:0 0 20px rgba(74,158,255,0.15);--radius:12px;--transition:0.25s cubic-bezier(0.4,0,0.2,1);
+  --sidebar-w:260px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+body{
+  background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.75;font-size:15px;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 0%,rgba(74,158,255,0.06),transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 100%,rgba(74,158,255,0.04),transparent 60%),
+    linear-gradient(180deg,var(--bg) 0%,#080e20 100%);
+}
+#sidebar{
+  position:fixed;left:0;top:0;width:var(--sidebar-w);height:100vh;
+  background:rgba(8,14,32,0.95);backdrop-filter:blur(20px);
+  border-right:1px solid var(--border);z-index:100;
+  overflow-y:auto;padding:1.5rem 1rem;
+}
+#sidebar .logo{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:1.5rem;line-height:1.3}
+#sidebar .logo span{color:var(--accent)}
+#sidebar .subtitle{font-size:0.75rem;color:var(--muted);margin-top:-1rem;margin-bottom:1.5rem}
+#sidebar nav a{
+  display:block;padding:0.45rem 0.75rem;border-radius:6px;color:var(--muted);
+  font-size:0.82rem;text-decoration:none;transition:var(--transition);
+  border-left:2px solid transparent;margin-bottom:2px;
+}
+#sidebar nav a:hover{color:var(--text);background:rgba(74,158,255,0.06)}
+#sidebar nav a.active{color:var(--accent);background:rgba(74,158,255,0.1);border-left-color:var(--accent)}
+#sidebar .badge{
+  display:inline-block;padding:2px 8px;border-radius:4px;
+  font-size:0.68rem;font-weight:600;margin-top:1.5rem;
+  background:rgba(74,158,255,0.12);color:var(--accent);
+}
+#main{margin-left:var(--sidebar-w);max-width:880px;padding:3rem 2.5rem 5rem}
+.hero{padding:2rem 0 1.5rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+.hero h1{font-size:2rem;font-weight:800;color:#fff;line-height:1.3;margin-bottom:0.5rem}
+.hero h1 span{background:linear-gradient(135deg,var(--accent),#7dd3fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .meta{font-size:0.85rem;color:var(--muted)}
+.hero .disclaimer{
+  margin-top:1rem;padding:0.75rem 1rem;background:rgba(255,215,0,0.06);
+  border-left:2px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;
+  font-size:0.78rem;color:rgba(255,215,0,0.7);line-height:1.5;
+}
+section{margin-bottom:3rem;animation:fadeUp 0.5s ease-out both}
+section:nth-child(2){animation-delay:0.05s}section:nth-child(3){animation-delay:0.1s}
+section h2{
+  font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:1.2rem;
+  padding-bottom:0.6rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:0.5rem;
+}
+section h2::before{
+  content:'';width:4px;height:1.2em;background:linear-gradient(180deg,var(--accent),transparent);
+  border-radius:2px;flex-shrink:0;
+}
+section h3{font-size:1.1rem;font-weight:600;color:#e2e8f0;margin:1.5rem 0 0.8rem}
+section h4{font-size:1rem;font-weight:600;color:#c8d2e0;margin:1.2rem 0 0.6rem}
+section p{margin-bottom:0.9rem;color:var(--text)}
+section strong{color:#fff;font-weight:600}
+.table-wrap{overflow-x:auto;margin:1.2rem 0;border-radius:var(--radius);border:1px solid var(--border)}
+.table-wrap table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.table-wrap thead{background:rgba(74,158,255,0.08)}
+.table-wrap th{padding:0.65rem 0.8rem;text-align:left;font-weight:600;color:var(--accent);font-size:0.78rem;letter-spacing:0.03em;white-space:nowrap}
+.table-wrap td{padding:0.55rem 0.8rem;border-top:1px solid rgba(255,255,255,0.04);color:var(--text)}
+.table-wrap tr:hover td{background:rgba(74,158,255,0.03)}
+.table-wrap td strong{color:var(--gold)}
+blockquote{
+  margin:1.2rem 0;padding:1rem 1.2rem;
+  background:rgba(0,0,0,0.3);border-left:2px solid var(--accent);
+  border-radius:0 var(--radius) var(--radius) 0;font-size:0.9rem;color:var(--muted);
+  position:relative;
+}
+blockquote::before{content:'>';position:absolute;left:-1rem;color:var(--accent);font-family:monospace;font-size:0.9rem;top:1rem}
+blockquote strong{color:#fff}
+pre{
+  margin:1.2rem 0;padding:1.2rem 1.5rem;
+  background:rgba(0,0,0,0.4);border:1px solid var(--border);
+  border-radius:var(--radius);overflow-x:auto;
+  font-family:"SF Mono","Fira Code",monospace;font-size:0.78rem;
+  line-height:1.5;color:var(--accent);
+  position:relative;
+}
+pre::before{content:'//';position:absolute;top:0.5rem;right:1rem;color:var(--dim);font-size:0.7rem}
+code{background:rgba(74,158,255,0.1);color:var(--accent);padding:0.15em 0.4em;border-radius:3px;font-size:0.88em}
+section ul,section ol{margin:0.8rem 0 0.8rem 1.3rem}
+section li{margin-bottom:0.3rem;color:var(--text)}
+section li strong{color:#fff}
+hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+@keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(400%)}}
+.scan-line{
+  position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:linear-gradient(180deg,transparent,rgba(74,158,255,0.015),transparent);
+  height:4px;animation:scan 8s linear infinite;
+}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.2rem 0}
+.card{
+  padding:1.2rem;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);transition:var(--transition);
+}
+.card:hover{border-color:rgba(74,158,255,0.3);box-shadow:var(--glow);transform:translateY(-1px)}
+.card h4{font-size:0.95rem;margin:0 0 0.5rem;color:var(--accent)}
+.card p{font-size:0.82rem;margin:0;color:var(--muted)}
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%);width:100%;position:fixed;transition:transform 0.3s}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-left:0;padding:1.5rem 1rem}
+  .hero h1{font-size:1.5rem}
+  section h2{font-size:1.2rem}
+  .card-grid{grid-template-columns:1fr}
+}
+#menu-btn{
+  display:none;position:fixed;top:1rem;left:1rem;z-index:200;
+  width:36px;height:36px;border-radius:8px;background:var(--card);
+  border:1px solid var(--border);color:var(--text);font-size:1.2rem;
+  cursor:pointer;align-items:center;justify-content:center;
+}
+@media(max-width:768px){#menu-btn{display:flex}}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(74,158,255,0.2);border-radius:3px}
+footer{
+  margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);
+  font-size:0.8rem;color:var(--dim);line-height:1.6;
+}
+footer strong{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="scan-line"></div>
+<button id="menu-btn">☰</button>
+<aside id="sidebar">
+  <div class="logo">未来 AI 实战训练营<br>投资招募计划书</div>
+  <div class="subtitle">未来基石数字科技（海南）有限公司</div>
+  <div class="badge">投资者版</div>
+  <nav id="nav">
+<a href="#目录">目录</a>
+<a href="#一-团队根基-16-年教育深耕-ai-新曲线">一、团队根基：16 年教育深耕 × AI 新曲线</a>
+<a href="#二-项目本质-我们在做什么">二、项目本质：我们在做什么</a>
+<a href="#三-市场机遇-为什么是现在">三、市场机遇：为什么是现在</a>
+<a href="#四-产品体系-三阶-双赛道">四、产品体系：三阶 × 双赛道</a>
+<a href="#五-核心竞争优势-为什么是我们">五、核心竞争优势：为什么是我们</a>
+<a href="#六-商业模式与收入预测">六、商业模式与收入预测</a>
+<a href="#七-城市合伙与扩张路径">七、城市合伙与扩张路径</a>
+<a href="#八-项目当前进展">八、项目当前进展</a>
+<a href="#九-长期价值体系">九、长期价值体系</a>
+<a href="#十-本轮投资方案">十、本轮投资方案</a>
+<a href="#十一-资金用途">十一、资金用途</a>
+<a href="#十二-里程碑与执行时间线">十二、里程碑与执行时间线</a>
+<a href="#十三-投资持有与退出安排">十三、投资持有与退出安排</a>
+<a href="#十四-风险提示">十四、风险提示</a>
+<a href="#十五-联系我们">十五、联系我们</a>
+  </nav>
+</aside>
+<main id="main">
+  <div class="hero">
+    <h1>未来 AI 实战训练营</span><br><span>投资招募计划书</h1>
+    <div class="meta">未来基石数字科技（海南）有限公司 · 2026 年 7 月 · 投资者版</div>
+    <div class="disclaimer">仅供受邀合作方及特定对象参阅 · 内容涉及商业敏感信息 · 请勿对外传播 · 不构成公开募集或保本保收益承诺</div>
+  </div>
+<p># 未来 AI 实战训练营 · 投资招募计划书</p>
+<p><strong>未来基石数字科技（海南）有限公司</strong></p>
+<blockquote>本文件仅供受邀合作方及特定投资人参阅，内容涉及商业敏感信息，请勿对外传播。<br>本文件不构成公开募集，不构成保本保收益承诺，不构成最终法律协议。<br>所有具体合作条款以后续正式签署的协议、公司章程、股东协议及出资协议为准。</blockquote>
+<hr>
+<section id="目录"><h2>目录</h2>
+<ol>
+<li>[团队根基：16 年教育深耕 × AI 新曲线](#一团队根基16-年教育深耕--ai-新曲线)</li>
+<li>[项目本质：我们在做什么](#二项目本质我们在做什么)</li>
+<li>[市场机遇：为什么是现在](#三市场机遇为什么是现在)</li>
+<li>[产品体系：三阶 × 双赛道](#四产品体系三阶--双赛道)</li>
+<li>[核心竞争优势：为什么是我们](#五核心竞争优势为什么是我们)</li>
+<li>[商业模式与收入预测](#六商业模式与收入预测)</li>
+<li>[城市合伙与扩张路径](#七城市合伙与扩张路径)</li>
+<li>[项目当前进展](#八项目当前进展)</li>
+<li>[长期价值体系](#九长期价值体系)</li>
+<li>[本轮投资方案](#十本轮投资方案)</li>
+<li>[资金用途](#十一资金用途)</li>
+<li>[里程碑与执行时间线](#十二里程碑与执行时间线)</li>
+<li>[投资持有与退出安排](#十三投资持有与退出安排)</li>
+<li>[风险提示](#十四风险提示)</li>
+<li>[联系我们](#十五联系我们)</li>
+</ol>
+<hr>
+<section id="一-团队根基-16-年教育深耕-ai-新曲线"><h2>一、团队根基：16 年教育深耕 × AI 新曲线</h2>
+<h3>1.1 深厚的教育基因</h3>
+<p>未来 AI 实战训练营并非凭空起楼。它生长在一个拥有 <strong>16 年历史</strong> 的教育体系之上——这个体系不是一家公司的名字，而是一群人的能力、关系与声誉的集合。</p>
+<p>核心团队源自 2009 年创立的华萃龙行教育，在家庭教育研究、青少年心灵成长和体验式教育领域持续深耕 16 年，形成了深厚的行业积累：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>维度</th><th>核心数据</th></tr></thead>
+<tbody>
+<tr><td>成立时间</td><td><strong>2009 年</strong>，运营 <strong>16 年</strong></td></tr>
+<tr><td>培训规模</td><td>累计培训 <strong>100 万+</strong> 家长、学生、教师</td></tr>
+<tr><td>服务网络</td><td>覆盖 <strong>12 个省份</strong>，合作 <strong>50+ 所重点学校</strong></td></tr>
+<tr><td>服务足迹</td><td>兰州 · 西安 · 珠海 · 无锡 · 重庆 等 <strong>12 省 50+ 所重点学校</strong></td></tr>
+<tr><td>课程体系</td><td><strong>60+ 节</strong> 系统化家庭教育课程</td></tr>
+<tr><td>满意度</td><td>家庭满意度 <strong>100%</strong>，签约单位满意度 <strong>100%</strong></td></tr>
+</tbody></table></div>
+<h3>1.2 创始人</h3>
+<p><strong>何虹洁</strong> —— 青少年教育研究专家，中国成人教育协会体验教育培训协会常务理事，中国教育家学会家庭教育研究员，CCTV 中学生频道「家长学校」专家顾问，第十届中国教育家大会提名「当代教育家」。拥有两项国家级教育类专利/著作权：《得分宝库》（专利号 ZL 2014 2 0573351.7）、《圆我大学梦》高考励志辅导课程（国作登字-2017-A-00461033）。</p>
+<h3>1.3 核心讲师团</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>姓名</th><th>核心资历</th></tr></thead>
+<tbody>
+<tr><td>何虹洁</td><td>创始人，CCTV 专家顾问，当代教育家提名</td></tr>
+<tr><td>彭少康</td><td>台湾游戏领导力培训总导师，国际童军木章持有人</td></tr>
+<tr><td>张春亮</td><td>中国成人教育协会体验教育专委会主任，体验教育师认证体系创始人</td></tr>
+<tr><td>宋莉丽</td><td>国家认证家庭教育指导师，畅销书《谁偷走了孩子的幸福》作者</td></tr>
+<tr><td>张旭玲</td><td>中科院心理研究所课题组专家，原北京大学课题组专家</td></tr>
+<tr><td>康炜</td><td>中国管理科学院特约研究员，高级生涯规划师</td></tr>
+<tr><td>孟庆新</td><td>国际注册体验式培训师，国家级营地指导员</td></tr>
+<tr><td>王斌</td><td>PTT 国际培训讲师，青少年成长指导师</td></tr>
+</tbody></table></div>
+<p>团队具备人力资源和社会保障部<strong>家庭教育指导师 + 体验教育师双证培训与颁发资质</strong>，有完整的讲师培养和认证体系。</p>
+<h3>1.4 国家级荣誉</h3>
+<ul>
+<li><strong>CCTV</strong> 全国体验教育培训示范单位</li>
+<li>中国孔子基金会授予 <strong>「孔子学堂」</strong></li>
+<li>第十届中国教育家大会 <strong>「办学好模式」奖</strong></li>
+<li>北京中关村体验教育协会 <strong>全国优秀体验教育培训单位</strong></li>
+<li>甘肃省民乐县教体局授予 <strong>「爱心助学先进企业」</strong></li>
+<li>入选 <strong>「当代教育家示范单位」</strong></li>
+</ul>
+<h3>1.5 已服务重点学校（部分）</h3>
+<p>西北师范大学附属中学、西安高新一中、西安高新二中、深圳华侨城中学、<strong>珠海第一中学、珠海第三中学</strong>、无锡第一高级中学、无锡第一女子中学、重庆枫叶国际学校、青岛第二十二中学、崂山三中、崂山区育才学校、兰州一中、兰州二中、兰州三中……等 <strong>50+</strong> 所全国重点中学。</p>
+<h3>1.6 战略升级：注入未来基石，开辟 AI 新赛道</h3>
+<p><strong>未来基石数字科技（海南）有限公司</strong> 是团队将 16 年教育积累注入的全新载体。团队全部核心资产——品牌声誉、师资力量、学校渠道、课程研发能力、运营经验——悉数注入这家公司，以此孵化全新的 AI 教育产品线：<strong>未来 AI 实战训练营</strong>。</p>
+<p>简单说：<strong>何虹洁老师及核心团队 16 年的教育能力、学校关系与行业声誉是底座，未来基石是承载新业务的法人主体，AI 实战训练营是第一条新增长曲线。</strong></p>
+<p>后续在完成城市验证和发展目标后，计划在北京或上海注册科技教育子公司或研究院，作为全国总部。</p>
+<hr>
+<section id="二-项目本质-我们在做什么"><h2>二、项目本质：我们在做什么</h2>
+<p><strong>未来 AI 实战训练营</strong>，是一套四层一体的复合型业务体系：</p>
+<pre>┌─────────────────────────────────────────────┐
+│              产品层                          │
+│  三阶训练营：AI 破界营 → AI 造物营 → AI 掌舵营  │
+├─────────────────────────────────────────────┤
+│              公司层                          │
+│  未来基石数字科技（海南）有限公司承接对外合作      │
+├─────────────────────────────────────────────┤
+│              城市层                          │
+│  城市合伙人本地招生 + 资源整合 + 执行落地        │
+├─────────────────────────────────────────────┤
+│              总部层                          │
+│  团队 16 年教育资产 + AI 课程研发 + 交付SOP    │
+│  家庭教育 · 青少年成长 · 体验式教育 · 学校渠道   │
+└─────────────────────────────────────────────┘</pre>
+<p><strong>我们不是卖课。我们是在一套 16 年验证过的教育体系之上，建立一条可复制、可扩张的 AI 教育新增长曲线。</strong></p>
+<h3>三条核心叙事线</h3>
+<p><strong>对青少年（13-18 岁）</strong> —— 卖的是未来竞争力。越早介入 AI 时代，能力上限越高。我们让学生提前建立表达、创作、信息处理和数字协同能力，形成作品集和实践履历。</p>
+<p><strong>对职场人</strong> —— 卖的是真实生产力。不是「知道 AI」，而是「用 AI 解决工作中的具体问题，打破效率瓶颈，跑通业务流」。</p>
+<p><strong>对投资人</strong> —— 卖的是一个低风险、高确定性的增长机会。16 年教育机构做新业务延伸，渠道已通、团队已备、品牌已验证——你投的不是从零开始的创业，而是一家成熟教育机构的新增长曲线。</p>
+<hr>
+<section id="三-市场机遇-为什么是现在"><h2>三、市场机遇：为什么是现在</h2>
+<h3>3.1 市场全景</h3>
+<p>2024 年起，国内 AI 工具的普及速度远超预期，但能帮助普通人<strong>真正用起来</strong>的落地教育产品极度稀缺。我们用一组数据来呈现当前市场的基本面：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>指标</th><th>数据</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>AI 教育市场规模</td><td><strong>千亿+</strong>，年增超 40%</td><td>2025 年行业综合预测，涵盖 K12 及成人培训</td></tr>
+<tr><td>AI 工具认知率 vs 使用率</td><td>90%+ 听说过，会用者不足 10%</td><td>来自一线调研与多家行业报告共识</td></tr>
+<tr><td>青少年编程教育已验证</td><td>少儿编程赛道年营收数十亿</td><td>编程猫、核桃编程等已验证家长付费意愿</td></tr>
+<tr><td>政策信号密集</td><td>多省市中小学将 AI 素养纳入评估</td><td>教育部及地方教育局已出台相关文件</td></tr>
+<tr><td>线下 AI 实战营供给</td><td><strong>几乎为零</strong></td><td>95% 课程为线上录播或 PPT 式讲解</td></tr>
+</tbody></table></div>
+<p>这个数据表揭示了一个结构性矛盾：需求端已经爆发，供给端严重滞后。线下实战型 AI 教育几乎是一片真空地带。</p>
+<h3>3.2 三大结构性机会</h3>
+<p><strong>机会一：实操型产品极度稀缺</strong></p>
+<p>市场上 95% 的 AI 课程停留在「讲工具是什么」。为什么？因为做线上录播课边际成本趋近于零，好规模化。而线下实战营需要 MacBook 设备、真实场地、高配助教——门槛高，大多数团队做不了。<strong>高门槛 = 低竞争 = 窗口期。</strong></p>
+<p><strong>机会二：青少年 AI 教育是下一个「编程热」</strong></p>
+<p>少儿编程赛道已经验证了家长的付费意愿（编程猫、核桃编程等企业年营收数十亿），多地中小学已将 AI 素养纳入评估体系。AI 实战训练是编程教育的自然升级——从「学写代码」到「学用 AI 创造」。家长对「孩子学 AI」的付费意愿甚至强于成人，因为这不是一笔培训支出，是对未来竞争力的一笔投资。<strong>先入局者占据家长心智。</strong></p>
+<p><strong>机会三：企业主 AI 落地需求迫切，付费能力强</strong></p>
+<p>总裁班和企业主群体的真实困境不是「AI 能做什么」，而是「怎么用到我的公司里」。一次 3-5 天的高密度实战集训、一次 AI 系统搭建服务，真正解决的是效率瓶颈和流程痛点。他们愿意为此付出远超普通培训的客单价——<strong>因为买的是解决方案，不是知识。</strong></p>
+<h3>3.3 为什么是我们来抓住这个机会</h3>
+<p>机会摆在那里，关键是为什么我们能抓住。答案在三层壁垒：</p>
+<p><strong>第一层：信任壁垒</strong></p>
+<p>16 年、100 万+ 学员、100% 满意度、CCTV 示范单位、孔子学堂——这些不是营销话术，是 16 年一个一个交付出来的。任何新进入者，花再多钱砸广告，也买不到 16 年的时间和 100 万学员的口碑。家长敢把孩子交给我们，学校敢跟我们合作——这不是一天两天能建立的。</p>
+<p><strong>第二层：渠道壁垒</strong></p>
+<p>50+ 所重点学校的合作关系，不是花钱投流能建起来的。校长推荐、班主任转发、家长会宣讲——这些获客渠道靠的是人对人的信任和长期交付记录。你能买流量，买不到校长的一句「这个机构靠谱」。</p>
+<p><strong>第三层：能力壁垒</strong></p>
+<p>既懂教育又懂 AI 的团队，市场上极少。我们的核心团队一端连着 16 年体验式教育经验（懂得如何让青少年在营地中沉浸学习、动手实操、带走成果），另一端连着 AI 工具的一线使用（课程里的每一个工具，讲师日常都在用）。<strong>懂教育的人不懂 AI，懂 AI 的人不懂教育——我们两样都做了足够久。</strong></p>
+<hr>
+<section id="四-产品体系-三阶-双赛道"><h2>四、产品体系：三阶 × 双赛道</h2>
+<h3>4.1 三阶产品总矩阵</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>维度</th><th>AI 破界营（一阶）</th><th>AI 造物营（二阶）</th><th>AI 掌舵营（三阶）</th></tr></thead>
+<tbody>
+<tr><td>时长（青少年）</td><td>3 天</td><td>5 天</td><td>7 天</td></tr>
+<tr><td>时长（成人）</td><td>3 天</td><td>3 天</td><td>3 天</td></tr>
+<tr><td>核心目标</td><td>会用 AI 工具，出成品</td><td>用 AI 做出真实产品</td><td>搭建全链路 AI 自动化系统</td></tr>
+<tr><td>技术门槛</td><td>零基础可参加</td><td>有一阶基础 / 有好奇心</td><td>有二阶基础 / 深度需求</td></tr>
+<tr><td>标志性成品</td><td>AI 海报 + 30秒短视频 + 提示词模板</td><td>能访问的真实网站 + 建站 SOP + 专属 Agent</td><td>知识库 + 自动化脚本 + AI 系统方案</td></tr>
+<tr><td>商业定位</td><td><strong>引流款</strong> · 口碑入口</td><td><strong>主力营收款</strong></td><td><strong>高客单价利润款</strong></td></tr>
+</tbody></table></div>
+<blockquote>青少年版长课时（3/5/7 天）适配沉浸式营地模式，含活动、游戏、团队协作等体验环节；成人版 3 天高密度交付，聚焦效率与产出。</blockquote>
+<h3>4.2 定价体系</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>阶段</th><th>课程名称</th><th>青少年课程</th><th>成人课程</th></tr></thead>
+<tbody>
+<tr><td>一阶</td><td>AI 破界营</td><td>¥6,800</td><td>¥3,980</td></tr>
+<tr><td>二阶</td><td>AI 造物营</td><td>¥19,800</td><td>¥9,800</td></tr>
+<tr><td>三阶</td><td>AI 掌舵营</td><td>¥39,800</td><td>¥19,800</td></tr>
+</tbody></table></div>
+<h3>4.3 三阶漏斗转化逻辑</h3>
+<pre>一阶（引流 + 建信任）──→ 二阶（主力营收）──→ 三阶（高客单利润）
+   ↓ 20-30% 转化率          ↓ 25-35% 转化率
+  首批学员入口              核心付费群体            高价值客户</pre>
+<p>每一阶结束时，讲师现场展示下一阶的成果效果。学员从「会用工具」→「会做产品」→「会搭系统」，形成持续升阶的商业闭环。</p>
+<h3>4.4 双赛道内容对照</h3>
+<p><strong>青少年课程</strong></p>
+<div class="table-wrap"><table>
+<thead><tr><th>模块</th><th>一阶任务（3天）</th><th>二阶任务（5天）</th><th>三阶任务（7天）</th></tr></thead>
+<tbody>
+<tr><td>核心场景</td><td>拆解错题 / 润色作文 / 生成口语素材</td><td>个人作品集网站 / 学习工具页面</td><td>错题库 / 学科知识树 / 学习自动化</td></tr>
+<tr><td>创作方向</td><td>学科主题海报 / 科幻插画</td><td>项目展示页</td><td>知识管理系统</td></tr>
+<tr><td>视频方向</td><td>30秒科普短视频</td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+<p><strong>成人课程</strong></p>
+<div class="table-wrap"><table>
+<thead><tr><th>模块</th><th>一阶任务（3天）</th><th>二阶任务（3天）</th><th>三阶任务（3天）</th></tr></thead>
+<tbody>
+<tr><td>核心场景</td><td>写周报 / 起草邮件 / 提炼会议纪要</td><td>公司展示页 / 个人品牌页 / 产品落地页</td><td>企业知识库 / 业务自动化 / 跨部门信息流转</td></tr>
+<tr><td>创作方向</td><td>业务宣传图 / 产品场景图</td><td>品牌主页</td><td>数据处理自动化</td></tr>
+<tr><td>视频方向</td><td>30秒业务短视频</td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+<h3>4.5 三阶工具矩阵</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>阶段</th><th>核心工具</th><th>学员获得的能力</th></tr></thead>
+<tbody>
+<tr><td>一阶</td><td>豆包 · DeepSeek · 通义千问 · 即梦 AI · 可灵 AI · Canva · 剪映</td><td>对话 AI · 图片/视频生成 · 基础提示词 · 基础工具工作流</td></tr>
+<tr><td>二阶</td><td>扣子 Coze · OpenClaw · QClaw · Hermes Agent · WorkBuddy · Claude Code · Codex</td><td>Agent 入门 · 自动化任务 · AI 辅助建站 · 页面生成与上线</td></tr>
+<tr><td>三阶</td><td>Obsidian + AI 插件 · Claude Code · Codex · Hermes Agent · OpenClaw · QClaw · 扣子 Coze</td><td>知识库搭建 · AI 辅助脚本开发 · 多工具联动 · 智能体闭环</td></tr>
+</tbody></table></div>
+<h3>4.6 核心教学原则</h3>
+<p>不教理论，只教你真正能用的。人手一台 MacBook，全程实操，每一阶都带走真实可展示的成品。离场不靠笔记，靠一套课后可继续使用的 AI 工作流程。</p>
+<h3>4.7 深度定制服务</h3>
+<p>在三阶标准课程之外，我们针对企业和个人的深度需求提供定制化服务。这部分业务的客单价和利润空间显著高于标准课程，是重要的收入增长极：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>服务类型</th><th>对象</th><th>内容</th><th>周期</th><th>定价参考</th></tr></thead>
+<tbody>
+<tr><td>企业 AI 内训</td><td>公司/机构团购</td><td>基于企业业务场景的定制化 AI 实战培训</td><td>3-5 天</td><td>¥3-8 万/场</td></tr>
+<tr><td>AI 系统搭建服务</td><td>企业/部门</td><td>知识库搭建 + 自动化流程设计 + 员工培训</td><td>1-2 月</td><td>¥10-30 万</td></tr>
+<tr><td>个人深度陪跑</td><td>企业主/高管</td><td>1v1 AI 能力建设 + 业务系统定制</td><td>3-6 月</td><td>¥5-10 万</td></tr>
+<tr><td>学校 AI 课程合作</td><td>中小学</td><td>AI 校本课程设计 + 师资培训 + 学期授课</td><td>按学期</td><td>¥5-15 万/学期</td></tr>
+</tbody></table></div>
+<p>这些服务的核心价值：不是"教 AI 工具"，而是"把 AI 嵌入客户的真实业务流中"。企业客户要的不是听 3 天课，而是 3 天后部门效率实实在在变了。</p>
+<h3>4.8 存量课程体系：团队的完整教育产品矩阵</h3>
+<p>AI 实战训练营是团队孵化的全新业务线。与此同时，团队在家庭教育、青少年成长、教师培训三个方向拥有成熟且仍在运营的课程产品库。这些不是"历史"，而是<strong>当前仍在贡献收入和口碑的存量业务</strong>。</p>
+<h4>家庭教育系列（60+ 节系统化课程）</h4>
+<p>覆盖小学一年级到高三全学段，按年级分阶段设计，累计培训数十万家长，满意度 100%：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>学段</th><th>代表课程（部分）</th></tr></thead>
+<tbody>
+<tr><td>小学段</td><td>家庭教育的目标是什么 / 如何培养孩子的规则意识 / 如何培养良好习惯 / 如何预防迷恋手机 / 如何让孩子爱上阅读 / 如何激发学习兴趣 / 如何培养抗挫能力 / 爷爷奶奶的教育智慧 / 父亲的教育影响</td></tr>
+<tr><td>初中段</td><td>初中孩子的心理特点及教育艺术 / 如何与青春期孩子有效沟通 / 如何培养自信心 / 如何培养理解与感恩之心 / 如何预防校园欺凌 / 如何避免厌世消极心态</td></tr>
+<tr><td>高中段</td><td>高中孩子的心理特点及教育艺术 / 学业方向的选择智慧 / 如何培养独立思考 / 如何与孩子谈论性 / 如何引导孩子树立崇高理想 / 高考前家长沟通的智慧 / 孩子，我们为什么要上大学</td></tr>
+</tbody></table></div>
+<h4>青少年心灵成长体验课程（13 门品牌课程）</h4>
+<p>面向中学生的体验式成长课程，直接在学校课堂交付：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>课程名称</th><th>主题方向</th></tr></thead>
+<tbody>
+<tr><td>《爱国之心·品格之根》</td><td>家国情怀教育</td></tr>
+<tr><td>《珍爱生命·热爱生活》</td><td>生命教育</td></tr>
+<tr><td>《压力与动力》</td><td>抗挫抗压能力</td></tr>
+<tr><td>《幸运之路》</td><td>理解与感恩</td></tr>
+<tr><td>《向着太阳》</td><td>预防校园欺凌</td></tr>
+<tr><td>《天生我材》</td><td>发现与培养特长</td></tr>
+<tr><td>《我思故我在》</td><td>独立思考与判断</td></tr>
+<tr><td>《圆我大学梦》★</td><td>高考动力激发（国家级著作权课程）</td></tr>
+<tr><td>《选择与努力》★</td><td>学业方向选择（国家级著作权课程）</td></tr>
+<tr><td>《放飞梦想》</td><td>中考动力激发</td></tr>
+<tr><td>《经历过都是财富》</td><td>高考心理减压</td></tr>
+<tr><td>《十七岁的雨季》</td><td>青春期恋爱观教育</td></tr>
+<tr><td>《规则意识的深远意义》</td><td>纪律与规则教育</td></tr>
+</tbody></table></div>
+<blockquote>★ 为已获国家级专利/著作权的品牌课程。</blockquote>
+<h4>教师培训课程（6 大模块，含人社部认证资质）</h4>
+<ul>
+<li>《新时代教师育人策略 · 从敬业到专业》</li>
+<li>《游戏在融合教育中的意义与应用》</li>
+<li>《减负背景下提升育人质量的渠道与实践》</li>
+<li>《内外兼修 · 做幸福老师》</li>
+<li>家庭教育指导师 师资认证班（人社部认证）</li>
+<li>体验教育师 师资认证班（人社部认证）</li>
+</ul>
+<h4>夏令营 / 军训 / 研学产品</h4>
+<ul>
+<li>青少年生命动力领跑营（品牌夏令营，家长满意度 100%）</li>
+<li>创新思维能力领跑营</li>
+<li>助学军训营</li>
+<li>大型户外体验活动</li>
+<li>研学旅行定制服务</li>
+</ul>
+<blockquote>以上存量课程由何虹洁老师及核心讲师团持续运营，在 50+ 合作学校中保持稳定的课程采购和复购。AI 训练营新业务将直接复用这套渠道和信任网络——新课程卖给现有学校，获客成本趋近于零。</blockquote>
+<hr>
+<section id="五-核心竞争优势-为什么是我们"><h2>五、核心竞争优势：为什么是我们</h2>
+<h3>5.1 产品差异化</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>竞争维度</th><th>市场现有产品</th><th>未来 AI 实战训练营</th></tr></thead>
+<tbody>
+<tr><td>教学方式</td><td>PPT 讲解 + 演示为主</td><td>人手 MacBook · 全程上机实操</td></tr>
+<tr><td>课程成果</td><td>证书 + 笔记</td><td>真实可用的成品（网站 / 视频 / 系统）</td></tr>
+<tr><td>讲师背景</td><td>培训师讲 AI 知识</td><td>AI 从业者 + 16 年教育团队联合交付</td></tr>
+<tr><td>渠道获客</td><td>依赖广告投放</td><td>50+ 学校合作网络，渠道已验证</td></tr>
+<tr><td>产品体系</td><td>单次课程居多</td><td>三阶漏斗，持续复购升阶</td></tr>
+<tr><td>青少年适配</td><td>通用内容，无场景化</td><td>全程绑定学习 / 科创场景</td></tr>
+<tr><td>职场适配</td><td>泛泛而谈效率提升</td><td>对接真实岗位痛点，当场跑通</td></tr>
+</tbody></table></div>
+<h3>5.2 结构性壁垒（为什么别人不容易抄）</h3>
+<ol>
+<li><strong>渠道壁垒</strong> —— 16 年积累的 50+ 学校关系，不是新进入者花钱投广告就能建起来的。学校合作靠的是信任和长期交付记录，而我们有 100% 满意度做背书。</li>
+</ol>
+<ol>
+<li><strong>品牌与信任壁垒</strong> —— CCTV 示范单位、孔子学堂、100 万+ 学员、家长感谢信和校长推荐，是新品牌无法短期复制的信任资产。</li>
+</ol>
+<ol>
+<li><strong>交付壁垒</strong> —— 体验式教育 + AI 实战的双重能力。我们不只是会讲 AI，我们真正懂得如何让青少年在营地环境中沉浸式学习、动手实操、带走成果。这是 16 年的核心能力。</li>
+</ol>
+<ol>
+<li><strong>团队壁垒</strong> —— 8 人核心讲师团持有国家级认证资质，具备完整的讲师培养和认证体系。这保证了跨城市复制时交付质量不会坍塌。</li>
+</ol>
+<hr>
+<section id="六-商业模式与收入预测"><h2>六、商业模式与收入预测</h2>
+<h3>6.1 收入结构</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>收入类型</th><th>说明</th><th>预计占比</th></tr></thead>
+<tbody>
+<tr><td>课程学费（主营）</td><td>三阶课程学员直接付费</td><td>60%</td></tr>
+<tr><td>企业内训与定制服务</td><td>企业团购 / 深度定制 / 系统搭建</td><td>15%</td></tr>
+<tr><td>渠道分成</td><td>机构 / 商学院导流学员，按比例分成</td><td>12%</td></tr>
+<tr><td>存量课程收入</td><td>家庭教育 / 青少年成长 / 教师培训等现有业务</td><td>8%</td></tr>
+<tr><td>社群会员 + 其他</td><td>结营后分级社群年费 / 工具推广佣金</td><td>5%</td></tr>
+</tbody></table></div>
+<h3>6.2 招生网络模型（核心运营逻辑）</h3>
+<h4>核心理念：分布式招生 × 集中式交付</h4>
+<p>我们不做"每一个城市独立建营地"的重模式。项目的运营逻辑是：</p>
+<blockquote><strong>4 个试点城市同时招生 → 集中在招生表现最好的城市开营 → 各招生城市按实际招生人数确认业绩。</strong></blockquote>
+<p>这套逻辑有三个好处：</p>
+<ol>
+<li><strong>风险分散</strong> —— 不押注单一城市。东边不亮西边亮，一个城市招生不理想，其他城市可以补</li>
+<li><strong>成本集约</strong> —— 只租一个营地场地、维护一套设备、派驻一组讲师，不需要在每个城市建点</li>
+<li><strong>竞争激励</strong> —— 各城市招生负责人有动力抢最好的开营城市资格，招生越猛、话语权越大</li>
+</ol>
+<h4>运营参数</h4>
+<div class="table-wrap"><table>
+<thead><tr><th>参数</th><th>青少年课程</th><th>成人课程</th></tr></thead>
+<tbody>
+<tr><td>招生城市</td><td>首批 4 城（山东 / 重庆 / 珠海 / 海南）</td><td>4 城 + 商学院渠道</td></tr>
+<tr><td>年开课期数</td><td>15 期（12 常规 + 2-3 寒暑假）</td><td>8 期</td></tr>
+<tr><td>每期人数</td><td>50 人</td><td>30 人</td></tr>
+<tr><td>年招生总量</td><td>750 人</td><td>240 人</td></tr>
+<tr><td>交付方式</td><td>集中在 1-2 个城市开营，学员跨城参营</td><td>成人课程可灵活落地</td></tr>
+</tbody></table></div>
+<blockquote>解释：750 人不是"一个城市招 750 人"，而是"4 个城市加起来招 750 人"。每个城市平均贡献约 190 人/年（每月不到 16 人），对于一个拥有学校渠道关系的城市负责人来说，这是完全可以执行的数字。</blockquote>
+<h4>升阶漏斗</h4>
+<pre>一阶（入口）──→ 20% 升二阶 ──→ 25% 升三阶</pre>
+<h4>青少年课程年收入</h4>
+<div class="table-wrap"><table>
+<thead><tr><th>阶段</th><th>客单价</th><th>人数</th><th>年收入</th></tr></thead>
+<tbody>
+<tr><td>一阶 AI 破界营</td><td>¥6,800</td><td>750 人</td><td>¥510.0 万</td></tr>
+<tr><td>二阶 AI 造物营</td><td>¥19,800</td><td>150 人</td><td>¥297.0 万</td></tr>
+<tr><td>三阶 AI 掌舵营</td><td>¥39,800</td><td>37 人</td><td>¥147.3 万</td></tr>
+<tr><td><strong>合计</strong></td><td><strong>937 人次</strong></td><td><strong>¥954.3 万</strong></td></tr>
+</tbody></table></div>
+<h4>成人课程年收入</h4>
+<div class="table-wrap"><table>
+<thead><tr><th>阶段</th><th>客单价</th><th>人数</th><th>年收入</th></tr></thead>
+<tbody>
+<tr><td>一阶 AI 破界营</td><td>¥3,980</td><td>240 人</td><td>¥95.5 万</td></tr>
+<tr><td>二阶 AI 造物营</td><td>¥9,800</td><td>48 人</td><td>¥47.0 万</td></tr>
+<tr><td>三阶 AI 掌舵营</td><td>¥19,800</td><td>12 人</td><td>¥23.8 万</td></tr>
+<tr><td><strong>合计</strong></td><td><strong>300 人次</strong></td><td><strong>¥166.3 万</strong></td></tr>
+</tbody></table></div>
+<h4>深度定制服务年收入（保守估计）</h4>
+<div class="table-wrap"><table>
+<thead><tr><th>服务类型</th><th>年服务量</th><th>定价</th><th>年收入</th></tr></thead>
+<tbody>
+<tr><td>企业 AI 内训</td><td>6 场</td><td>¥3-8 万/场</td><td>¥18-48 万</td></tr>
+<tr><td>AI 系统搭建</td><td>2 个</td><td>¥10-30 万</td><td>¥20-60 万</td></tr>
+<tr><td>个人深度陪跑</td><td>3 位</td><td>¥5-10 万</td><td>¥15-30 万</td></tr>
+<tr><td>学校 AI 课程合作</td><td>3 所</td><td>¥5-15 万/学期</td><td>¥15-45 万</td></tr>
+<tr><td><strong>合计</strong></td><td><strong>¥68-183 万</strong></td></tr>
+</tbody></table></div>
+<h4>年度收入总览（满载）</h4>
+<div class="table-wrap"><table>
+<thead><tr><th>来源</th><th>年收入</th></tr></thead>
+<tbody>
+<tr><td>青少年课程</td><td>¥954.3 万</td></tr>
+<tr><td>成人课程</td><td>¥166.3 万</td></tr>
+<tr><td>深度定制服务</td><td>¥100-150 万（取中值）</td></tr>
+<tr><td><strong>合计</strong></td><td><strong>¥1,220-1,270 万</strong></td></tr>
+</tbody></table></div>
+<h3>6.3 成本结构（网络模型）</h3>
+<p>集中交付带来的成本优势：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>成本项</th><th>金额（万）</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>场地租赁</td><td>30-40</td><td>集中 1 个营地，而非 4 城各租场地</td></tr>
+<tr><td>讲师+助教团队</td><td>50-70</td><td>一组团队覆盖全网络，而非每城一组</td></tr>
+<tr><td>设备租赁</td><td>3-5</td><td>首批 MacBook 租赁，轻资产启动，验证后视需求采购</td></tr>
+<tr><td>物料与教材</td><td>10-15</td><td>统一采购，量大从优</td></tr>
+<tr><td>招生获客成本</td><td>35-45</td><td>4 城招生推广，略高于单城，但分摊后单人成本更低</td></tr>
+<tr><td>日常运营</td><td>15-20</td><td>集中管理，效率更高</td></tr>
+<tr><td><strong>年度总成本</strong></td><td><strong>143-195</strong></td></tr>
+</tbody></table></div>
+<h3>6.4 利润测算</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>保守（40% 负荷）</th><th>正常（65% 负荷）</th><th>满载（100%）</th></tr></thead>
+<tbody>
+<tr><td>年营收</td><td>¥490 万</td><td>¥800 万</td><td>¥1,245 万</td></tr>
+<tr><td>年成本</td><td>¥150 万</td><td>¥170 万</td><td>¥195 万</td></tr>
+<tr><td><strong>年净利润</strong></td><td><strong>¥340 万</strong></td><td><strong>¥630 万</strong></td><td><strong>¥1,050 万</strong></td></tr>
+<tr><td><strong>净利润率</strong></td><td><strong>69%</strong></td><td><strong>79%</strong></td><td><strong>84%</strong></td></tr>
+</tbody></table></div>
+<blockquote>核心逻辑不变：训练营属于轻资产模式，核心成本为固定支出。学员越多，单人分摊越低。招生网络模型的核心优势在于——<strong>同样的招生总量，因为 4 城分摊获客，招生风险更低、达成的确定性更高。</strong></blockquote>
+<h3>6.5 三年收入展望</h3>
+<p>以下基于招生网络模型推导。核心增长驱动力：<strong>50+ 学校渠道第一天就在那里，不是第一年才去建。</strong></p>
+<div class="table-wrap"><table>
+<thead><tr><th>第一年（验证期）</th><th>第二年（扩张期）</th><th>第三年（规模期）</th></tr></thead>
+<tbody>
+<tr><td>招生网络</td><td>4 城网络</td><td>6-8 城网络</td><td>8-12 城 + 授权体系</td></tr>
+<tr><td>年营收</td><td><strong>¥500-700 万</strong></td><td><strong>¥1,500-2,500 万</strong></td><td><strong>¥3,500-5,500 万</strong></td></tr>
+<tr><td>净利润率</td><td>18-25%</td><td>28-38%</td><td>38-48%</td></tr>
+<tr><td><strong>年净利润</strong></td><td><strong>¥90-175 万</strong></td><td><strong>¥420-950 万</strong></td><td><strong>¥1,330-2,640 万</strong></td></tr>
+</tbody></table></div>
+<p>推导逻辑：第一年 4 城 × 60-70% 负荷（¥750-870 万课程收入） + 存量课程 ¥80-120 万 + 定制服务首单——渠道已存在，负荷爬坡速度比纯新项目快。第二年招生网络扩展至 6-8 城，负荷 60-80%，二阶三阶复购发力，定制服务常态化。第三年形成 8-12 城网络或授权体系，规模效应全面释放，净利率趋近 50%。</p>
+<blockquote>以上为基于网络模型的合理推导，不构成业绩承诺。实际增长曲线取决于招生执行速度和市场环境。</blockquote>
+<h3>6.6 长期衍生收入</h3>
+<ul>
+<li>企业内训与顾问服务</li>
+<li>AI 系统定制开发</li>
+<li>品牌授权与城市合作管理费</li>
+<li>认证体系与行业协会年费</li>
+<li>赛事活动与人才对接</li>
+<li>高阶陪跑与持续服务</li>
+</ul>
+<hr>
+<section id="七-城市合伙与扩张路径"><h2>七、城市合伙与扩张路径</h2>
+<h3>7.1 招生网络如何运转</h3>
+<p>第六章的经济模型靠一套组织模型来落地：<strong>分布式招生、集中式交付、总部统一管理。</strong></p>
+<p>具体来说：首批 4 城（山东、重庆、珠海、海南）同时启动招生——各自激活本地学校渠道和家长网络。总部根据各城实际招生结果，选择表现最好的 1-2 个城市作为开营地点。学员跨城参营，各地招生业绩归各地所有。</p>
+<p>这套机制有三个好处：</p>
+<ol>
+<li><strong>风险分散</strong> —— 不押注单一城市，东边不亮西边亮</li>
+<li><strong>成本集约</strong> —— 一套讲师团队、一组设备、一个营地，服务全网络</li>
+<li><strong>市场选择</strong> —— 招生数据自然告诉你哪座城市最适合深耕，不需要拍脑袋</li>
+</ol>
+<p>城市端通过招生合作模式与总部协作（具体招商方案独立成册，不在此展开）。投资人需要知道的是：<strong>这套模型的人力成本极低——城市端拿招生分成，总部端轻资产运营，双方都不需要重投入。</strong></p>
+<h3>7.2 首批试点城市</h3>
+<p><strong>山东、重庆、珠海、海南</strong></p>
+<p>这四城的共同点：<strong>团队均已建立深度合作关系多年。</strong> 珠海有多年运营基础，服务过珠海一中、珠海三中、北师大附中；重庆枫叶国际学校为长期合作校；山东青岛多所中学已有合作基础。</p>
+<h3>7.3 扩张逻辑</h3>
+<ol>
+<li><strong>第一年</strong>：4 城招生网络验证，优先选出 1-2 个主力开营城市</li>
+<li><strong>第二年</strong>：网络扩展至 6-8 城，基于第一年数据筛选新增城市</li>
+<li><strong>第三年</strong>：形成 8-12 城网络或品牌授权体系，启动标准化招商</li>
+</ol>
+<hr>
+<section id="八-项目当前进展"><h2>八、项目当前进展</h2>
+<h3>8.1 已完成</h3>
+<ul>
+<li>✅ 三阶产品体系设计完成（课程结构、工具矩阵、成果标准）</li>
+<li>✅ 6 维产品详细文档完成（每阶均可独立用于对外介绍、招生物料、讲师底稿）</li>
+<li>✅ 双赛道逻辑完整（青少年 / 成人独立案例与交付标准）</li>
+<li>✅ 6 份核心支撑文档（总方案、城市合伙人计划、招生文案、交付框架、产品文档、股权招募书）</li>
+<li>✅ 招生文案成品输出（公众号长文、朋友圈文案、海报文案、FAQ、咨询话术）</li>
+<li>✅ 城市合伙人商业计划书 + 股权合作框架完成</li>
+<li>✅ 首批 4 城确定，均有团队多年学校合作基础</li>
+<li>✅ 16 年教育运营经验 + 100 万+ 学员交付记录 + 50+ 学校渠道就绪</li>
+</ul>
+<h3>8.2 进行中</h3>
+<ul>
+<li>🔄 一阶课程教案细化（含体验式教育活动设计，适配营地模式）</li>
+<li>🔄 城市合作协议模板</li>
+<li>🔄 讲师团队 AI 能力集训</li>
+</ul>
+<h3>8.3 待启动</h3>
+<ul>
+<li>📋 设备租赁落实（首批 MacBook 教学用机）</li>
+<li>📋 首期场地确认</li>
+<li>📋 首场招生活动</li>
+<li>📋 官网 / 落地页搭建</li>
+</ul>
+<hr>
+<section id="九-长期价值体系"><h2>九、长期价值体系</h2>
+<h3>9.1 认证体系</h3>
+<p>训练营学员不只要学完课程，更要获得一份有持续市场价值的认证身份。</p>
+<p>计划逐步建立三级证书体系：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>证书等级</th><th>对应课程</th><th>证书名称</th><th>含金量定位</th><th>学员可用场景</th></tr></thead>
+<tbody>
+<tr><td>L1</td><td>AI 破界营</td><td>AI 数字素养认证</td><td>入门级 · 广覆盖</td><td>简历加分 · 面试谈资 · 展示材料</td></tr>
+<tr><td>L2</td><td>AI 造物营</td><td>AI 产品实践认证</td><td>进阶级 · 有项目背书</td><td>求职竞争力 · 薪资谈判筹码</td></tr>
+<tr><td>L3</td><td>AI 掌舵营</td><td>AI 系统工程师认证</td><td>高阶级 · 稀缺性强</td><td>高薪岗位敲门砖 · 创业背书</td></tr>
+</tbody></table></div>
+<p>中远期规划：以行业协会或专业机构形式运营认证体系（类比团队现有的人社部体验教育师认证体系），向政府、企业、高校寻求背书合作。</p>
+<h3>9.2 赛事生态体系</h3>
+<p>赛事是课程体系的最强放大器。组织学员参加高校黑客松、青少年 AI 创新大赛、全国职业技能大赛 AI 赛道等外部赛事，提供赛前辅导营。中远期举办自主品牌赛事「AI 少年创客挑战赛」「AI 实战 48H 黑客松」等，既是招生入口，也是品牌曝光和独立营收来源。</p>
+<h3>9.3 校友与社群体系</h3>
+<ul>
+<li>学员校友会，形成长期社群网络</li>
+<li>AI 创新实践俱乐部，持续输出内容和活动</li>
+<li>人才与项目资源池，为企业和学员做对接</li>
+</ul>
+<h3>9.4 科研能力与知识产权</h3>
+<p>团队在科研和知识产权方向已有扎实积累，并持续投入：</p>
+<ul>
+<li><strong>已有专利与著作权：</strong>《得分宝库》学习工具（专利号 ZL 2014 2 0573351.7）、《圆我大学梦》高考励志辅导课程（国作登字-2017-A-00461033）</li>
+<li><strong>行业认证资质：</strong> 持有人社部家庭教育指导师 + 体验教育师双证培训与颁发资质</li>
+<li><strong>中远期目标：</strong> 围绕 AI 教育方法论、课程体系和训练营交付模型，申请新的软件著作权、教学专利；申报科技型中小企业、高新技术企业等资质认定。这些资质不只是"牌子"，而是未来在 B 端市场（学校采购、政府项目、企业内训）中获取信任和溢价的核心资产。</li>
+</ul>
+<hr>
+<section id="十-本轮投资方案"><h2>十、本轮投资方案</h2>
+<h3>10.1 融资概况</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>项目</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td>融资主体</td><td>未来基石数字科技（海南）有限公司</td></tr>
+<tr><td>本轮目标</td><td><strong>人民币 30 万元起</strong></td></tr>
+<tr><td>释放股权</td><td><strong>不超过 10%</strong></td></tr>
+<tr><td>对应估值</td><td><strong>300 万元（Pre-A）</strong></td></tr>
+<tr><td>进入方式</td><td>股权投资，一次性出资</td></tr>
+</tbody></table></div>
+<h3>10.2 为什么是 30 万，为什么是现在</h3>
+<p>这个数字的设定有两个考量。</p>
+<p><strong>第一，这笔资金让我们变得更强，而不是填补某个缺口。</strong> 团队拥有 16 年的教育资产、现成的学校渠道、完整的课程体系——我们不是在等一笔钱才能起步。国庆首期训练营的时间表已经锁定，不论资金何时到位，课程都会如期开营。这笔 30 万的进入，加速的是节奏：更大的线上推广覆盖面、更多的设备保障、更强的助教团队配置。</p>
+<p><strong>第二，更重要的是我们怎么看待这笔投资的性质。</strong> 本轮 30 万换 10%、对应 300 万估值——这不是一次融资，而是一次<strong>合伙人筛选</strong>。我们希望进来的，是真正认可 AI 教育赛道、愿意出钱也愿出力、和我们一起把这件事做大的合作伙伴。你在最早期进来，不是因为你需要占便宜，而是因为你看到了别人还没看到的——一个 16 年教育团队正在打开的 AI 新增长曲线。</p>
+<p><strong>300 万是这个项目生命周期里最低的进入窗口。</strong> 一旦首城跑通、招生网络模型被数据验证，下一轮估值的锚就不是纸面规划，而是真实的营收和利润。到那时，同样的 10%，价格就不是 30 万了。</p>
+<p>我们希望找到的合作伙伴，具备这样的特质：理解早期项目周期、认可团队 16 年教育积累的价值、愿意以合伙人身份出钱出力、陪项目一起长大。如果你恰好也有本地教育或商业资源，那你就是最适合的那个人。</p>
+<h3>10.3 估值依据</h3>
+<p>当前 300 万估值基于：</p>
+<ol>
+<li><strong>已有 16 年验证的教育资产</strong> —— 团队声誉、100% 满意度、50+ 学校渠道、100 万+ 学员不是估值水分，是硬资产</li>
+<li><strong>新业务产品体系完整</strong> —— 三阶课程、双赛道、工具矩阵、交付标准全部成型</li>
+<li><strong>全链路物料齐备</strong> —— 从产品文档到招生文案，可直接投入市场</li>
+<li><strong>试点城市渠道已通</strong> —— 4 城均有团队多年学校合作关系，构成了一个可立即激活的招生网络</li>
+<li><strong>同阶段参考</strong> —— 纯知识类培训项目同等阶段估值 200-500 万，本项目额外包含 16 年教育品牌资产</li>
+</ol>
+<h3>10.4 三层权益结构</h3>
+<p>适应不同类型的合作方：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>层级</th><th>适用对象</th><th>权益形式</th></tr></thead>
+<tbody>
+<tr><td><strong>总部层股权</strong></td><td>创始团队、关键战略股东、早期重要资金方</td><td>公司股权、分红权、知情权、优先认购权</td></tr>
+<tr><td><strong>项目层权益</strong></td><td>暂不宜直接进入总部股权的合作方</td><td>项目收益权、阶段分红权、约定条件下的股权转换权</td></tr>
+<tr><td><strong>城市层合作权益</strong></td><td>城市负责人、本地资源整合者</td><td>城市合作收益权、项目分成权</td></tr>
+</tbody></table></div>
+<p>本轮投资方进入的是<strong>总部层股权</strong>，享有按持股比例的公司权益。</p>
+<h3>10.5 投资方权益</h3>
+<ul>
+<li>按持股比例享有年度税后净利润分红权</li>
+<li>每季度财务报告知情权（营收、成本、利润数据）</li>
+<li>重大事项（超过 30 万的支出 / 战略合作）知情权与建议权</li>
+<li>优先参与后续融资轮次（同等条件下优先跟投权）</li>
+</ul>
+<h3>10.6 股权结构建议</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>股东构成</th><th>持股比例</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>创始团队</td><td><strong>90%</strong></td><td>保留绝对控制权，确保运营决策独立性</td></tr>
+<tr><td>本轮投资方</td><td><strong>10%</strong></td><td>对应本轮出资，享有分红权与退出权</td></tr>
+</tbody></table></div>
+<blockquote>后续融资轮次可视发展需要设置期权池。</blockquote>
+<h3>10.7 进入方式</h3>
+<p>签订投资协议后一次性划款。30 万的规模不需要分批——简单直接，降低双方的管理成本。</p>
+<h3>10.8 治理原则</h3>
+<ul>
+<li><strong>创始团队主导：</strong> 品牌方向、产品方向、课程标准、城市授权、核心合作准入、重大股权调整</li>
+<li><strong>重大事项需沟通：</strong> 大额融资、公司章程调整、新增重大股东、核心资产转让</li>
+<li><strong>创始团队保留一票否决权：</strong> 品牌控制权变更、课程标准变更、重大股权失控风险事项</li>
+</ul>
+<hr>
+<section id="十一-资金用途"><h2>十一、资金用途</h2>
+<p>30 万的进入，<strong>不是填补某个缺口——团队本身已有完整的课程体系、学校渠道和运营能力。</strong> 这笔资金的作用是让我们在首期启动时，配置更充分、跑得更快。</p>
+<div class="table-wrap"><table>
+<thead><tr><th>用途</th><th>金额（万）</th><th>占比</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>互联网推广与自媒体投流</td><td>10-12</td><td>33-40%</td><td>抖音/公众号/小红书内容投放+制作，主力获客引擎</td></tr>
+<tr><td>人员储备与师资配置</td><td>6-8</td><td>20-27%</td><td>核心助教团队 + 兼职讲师课时费，保障首期交付质量</td></tr>
+<tr><td>流动资金</td><td>4-6</td><td>13-20%</td><td>日常运营、行业/协会申办费用、经营资质备案、拍摄宣传审批</td></tr>
+<tr><td>设备租赁</td><td>2-3</td><td>7-10%</td><td>MacBook 首批租赁（轻资产启动，验证后视需求采购）</td></tr>
+<tr><td>场地与执行</td><td>2-3</td><td>7-10%</td><td>首营地短期租赁、基础教学设备</td></tr>
+<tr><td>课程物料</td><td>2-3</td><td>7-10%</td><td>学员手册、工具礼包、证书、素材包</td></tr>
+<tr><td><strong>合计</strong></td><td><strong>30</strong></td><td><strong>100%</strong></td></tr>
+</tbody></table></div>
+<p>核心逻辑：<strong>大头在推广和人员——因为产品已经好了，渠道已经在了，现在要做的是让更多人知道，并且确保交付质量。</strong> 设备和场地走轻资产路线，把资源集中在能直接带来增长的地方。</p>
+<hr>
+<section id="十二-里程碑与执行时间线"><h2>十二、里程碑与执行时间线</h2>
+<blockquote>以下为首年完整时间表。项目不以"资金到位"为启动条件——无论融资进度如何，课程研发、渠道激活和招生准备同步推进。</blockquote>
+<div class="table-wrap"><table>
+<thead><tr><th>时间</th><th>里程碑</th><th>核心动作</th></tr></thead>
+<tbody>
+<tr><td><strong>2026 年 7 月</strong></td><td>产品终稿 + 渠道激活</td><td>三阶课程教案定稿；4 城学校渠道启动对接；招生文案+投流素材上线</td></tr>
+<tr><td><strong>2026 年 8 月</strong></td><td>首期招生启动</td><td>各城同步开放报名；自媒体投流+学校渠道双线推广；宣讲会/体验课排期</td></tr>
+<tr><td><strong>2026 年 9 月</strong></td><td>开营前冲刺</td><td>学员确认+分班；设备租赁到位；讲师助教集训；营地现场踩点</td></tr>
+<tr><td><strong>2026 年 10 月 1-7 日</strong></td><td><strong>首期 AI 破界营开营</strong></td><td>国庆假期：青少年 3 天营 + 成人 3 天营；同期启动二阶预售</td></tr>
+<tr><td><strong>2026 年 10-12 月</strong></td><td>周末常规运营</td><td>每周末 1 期一阶课程滚动交付；开始积累学员反馈和升阶转化数据</td></tr>
+<tr><td><strong>2027 年 1-2 月</strong></td><td>寒假冲刺</td><td>青少年二阶/三阶集中营；成人年终企业内训集中交付；复盘首年数据</td></tr>
+<tr><td><strong>2027 年 3 月起</strong></td><td>常态化放量</td><td>周末+节假日滚动交付；暑假二阶三阶密集排期；企业定制服务常态化</td></tr>
+</tbody></table></div>
+<blockquote>后续课程排期原则：<strong>青少年聚焦周末、寒暑假、法定节假日；成人聚焦周末和假期。</strong> 最大程度匹配目标人群的可支配时间，确保到课率和交付质量。</blockquote>
+<p>中远期战略节点（第二年起）：</p>
+<ul>
+<li>招生网络扩展至 6-8 城</li>
+<li>赛事体系启动（自主品牌赛事首秀）</li>
+<li>行业认证资质申报（科技型中小企业/高新技术企业）</li>
+<li>AI 教育方法论的专利申请与著作权积累</li>
+</ul>
+<hr>
+<section id="十三-投资持有与退出安排"><h2>十三、投资持有与退出安排</h2>
+<h3>13.1 我们的期待：陪伴公司一起长大</h3>
+<p>作为创始团队，我们最希望的不是"你什么时候退出"，而是<strong>你愿意和我们一起走多远</strong>。24-36 个月的持有周期，对应的不是"退出时间到了"，而是公司从首城验证到多城复制的完整成长过程。在这段路上，你的股权价值会随着每一座新城市、每一期新课程、每一家新企业客户而持续增长。</p>
+<p>当然，我们理解每位合伙人的个人规划不同，也尊重任何合理时点的退出需求。</p>
+<h3>13.2 锁定期</h3>
+<p>本轮投资设有 <strong>24 个月</strong> 锁定期。锁定期内原则上不退出、不转让，确保公司在验证期和放量期的股权结构稳定，所有人聚焦同一个目标。</p>
+<h3>13.3 退出安排</h3>
+<p>如果未来某个时点，你因个人规划需要退出，以下机制保障你的权益。所有安排均以<strong>公司正常经营不受影响</strong>为首要前提：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>退出方式</th><th>适用场景</th><th>安排原则</th></tr></thead>
+<tbody>
+<tr><td><strong>公司回购</strong></td><td>投资方因个人原因需要退出</td><td>双方基于届时公司审计后的实际经营状况协商回购价格，确保公允合理</td></tr>
+<tr><td><strong>股权转让</strong></td><td>投资方希望转让给第三方</td><td>需经创始团队同意；创始方享有优先购买权；转让对象需认可公司长期发展方向</td></tr>
+<tr><td><strong>持续分红</strong></td><td>不希望退出，享受长期收益</td><td>按持股比例参与年度税后净利润分红，伴随公司成长持续获得现金回报</td></tr>
+<tr><td><strong>并购 / 新融资轮</strong></td><td>公司被收购或引入新投资方</td><td>按持股比例享有对应收益；可选择部分退出或全部退出</td></tr>
+</tbody></table></div>
+<blockquote>回购与转让的具体条款，将在正式投资协议中明确约定，以保障双方权益的公平性和可执行性。</blockquote>
+<h3>13.4 回报参考（以 30 万投资为例）</h3>
+<p>以下为不同持有路径的收益参考。<strong>我们更希望你关注右侧两列——那是陪伴公司成长的回报。</strong></p>
+<div class="table-wrap"><table>
+<thead><tr><th>持有年限</th><th>分红累计（参考）</th><th>估值增长（若升至 1,500 万）</th><th>估值增长（若升至 3,000 万）</th></tr></thead>
+<tbody>
+<tr><td>2 年</td><td>¥10-30 万</td><td>—</td><td>—</td></tr>
+<tr><td>3 年</td><td>¥30-80 万</td><td>¥150 万（+400%）</td><td>—</td></tr>
+<tr><td>5 年</td><td>¥80-200 万</td><td>—</td><td>¥300 万（+900%）</td></tr>
+</tbody></table></div>
+<blockquote>分红参考基于第三章利润模型；估值增长基于假设场景，不构成收益承诺。1,500 万估值推导：招生网络验证成功、年净利润 ¥500-900 万的 5-8 倍 PE。3,000 万估值推导：多城规模运营、年净利润 ¥1,500-2,500 万的 8-12 倍 PE。</blockquote>
+<hr>
+<section id="十四-风险提示"><h2>十四、风险提示</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>风险类型</th><th>描述</th><th>应对策略</th></tr></thead>
+<tbody>
+<tr><td><strong>招生风险</strong></td><td>首期学员数量不足</td><td>依托团队现有学校渠道和家长网络，首批学员从已有关系中转化，降低纯市场获客风险</td></tr>
+<tr><td><strong>工具迭代风险</strong></td><td>AI 工具快速更新，课程内容滞后</td><td>团队是 AI 一线使用者；课程采用模块化设计，工具替换成本低</td></tr>
+<tr><td><strong>竞争风险</strong></td><td>大厂或资本介入同类产品</td><td>差异化壁垒来自「实战出成品 + 16 年学校渠道 + 体验式教育能力」，纯线上课无法复制</td></tr>
+<tr><td><strong>交付质量风险</strong></td><td>助教能力参差</td><td>标准化 SOP + 助教培训认证体系（复用团队成熟的讲师培养体系）</td></tr>
+<tr><td><strong>合规风险</strong></td><td>教育行业资质、数据安全</td><td>提前咨询主管部门；课程加入 AI 伦理与数据安全模块</td></tr>
+<tr><td><strong>主体过渡风险</strong></td><td>海南主体为过渡，未来可能迁至北京/上海</td><td>合作文件中明确后续承接原则，保障投资方权益连续性</td></tr>
+</tbody></table></div>
+<p><strong>因此：</strong></p>
+<ul>
+<li>本项目不承诺短期暴利</li>
+<li>不承诺固定收益</li>
+<li>不承诺无风险退出</li>
+<li>任何具体收益结果都取决于产品、市场、资源和执行的共同作用</li>
+</ul>
+<hr>
+<section id="十五-联系我们"><h2>十五、联系我们</h2>
+<p><strong>未来基石数字科技（海南）有限公司</strong></p>
+<p>本投资招募计划书仅用于非公开、特定对象的项目合作沟通。</p>
+<p>如需进一步了解或讨论合作，请联系我们安排一对一深度沟通：</p>
+<ul>
+<li>📋 了解项目详细方案</li>
+<li>📋 提交合作意向</li>
+<li>📋 评估合作类型</li>
+<li>📋 签署合作框架</li>
+<li>📋 启动合作</li>
+</ul>
+<hr>
+<blockquote><strong>未来 AI 实战训练营</strong></blockquote>
+<p>></p>
+<blockquote>不教理论，只教你真正能用的 AI。</blockquote>
+<p>></p>
+<blockquote>16 年教育根基，一条 AI 新曲线。我们不是在卖一节课——我们在建立一套可复制、可扩张、可持续的 AI 教育与数字技能城市运营模型。</blockquote>
+<p>></p>
+<blockquote>未来基石数字科技（海南）有限公司<br>2026 年 7 月</blockquote>
+  <footer>
+    <p><strong>未来基石数字科技（海南）有限公司</strong></p>
+    <p>2026 年 7 月 · 16 年教育根基，一条 AI 新曲线 · 投资者版</p>
+  </footer>
+</main>
+<script>
+(function(){
+  const nav=document.getElementById('nav');
+  const sections=document.querySelectorAll('section[id]');
+  const links=nav.querySelectorAll('a');
+  const btn=document.getElementById('menu-btn');
+  const sb=document.getElementById('sidebar');
+  btn.onclick=()=>sb.classList.toggle('open');
+  document.addEventListener('click',e=>{
+    if(window.innerWidth<=768&&!sb.contains(e.target)&&e.target!==btn)
+      sb.classList.remove('open');
+  });
+  links.forEach(l=>l.addEventListener('click',()=>{if(window.innerWidth<=768)sb.classList.remove('open')}));
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a=nav.querySelector('a[href="#'+e.target.id+'"]');
+        if(a)a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-80px 0px -70% 0px'});
+  sections.forEach(s=>io.observe(s));
+})();
+</script>
+</body>
+</html>
