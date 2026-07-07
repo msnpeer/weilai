@@ -36,6 +36,7 @@ export default defineConfig({
           { text: '投资招募', link: '/wiki/specs/投资招募' },
         ]
       },
+      { text: '看板', link: '/wiki/kanban' },
     ],
 
     sidebar: {
@@ -44,7 +45,8 @@ export default defineConfig({
           text: '总览',
           items: [
             { text: '总目录', link: '/wiki/INDEX' },
-            { text: 'Agent 规范', link: '/wiki/README' },
+          { text: '任务看板', link: '/wiki/kanban' },
+          { text: 'Agent 规范', link: '/wiki/README' },
           ]
         },
         {

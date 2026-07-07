@@ -10,6 +10,7 @@
 | [specs](/wiki/specs/产品参数) | 产品规格与参数 | 所有人 |
 | [meetings](/wiki/meetings/_模板) | 会议纪要 | 所有人 |
 | [contacts](/wiki/contacts/核心团队) | 联系人资源 | 所有人 |
+| [kanban](/wiki/kanban) | 项目任务看板 | 所有人 |
 
 ## 项目速览
 
