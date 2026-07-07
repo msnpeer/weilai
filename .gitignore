@@ -19,3 +19,5 @@ Thumbs.db
 # Sensitive / temp
 *.log
 .env
+public/issues.json
+public/issues.json

@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: read
 
 concurrency:
   group: pages
@@ -26,6 +27,13 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Fetch GitHub Issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue list --repo ${{ github.repository }} --state all --limit 50 --json number,title,labels,state,url,createdAt --jq '.' > public/issues.json
+          echo "Fetched $(jq 'length' public/issues.json) issues"
 
       - name: Build VitePress
         run: npm run build

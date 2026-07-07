@@ -1,221 +1,222 @@
 ---
-title: 项目任务看板
+title: 任务看板
 ---
 
-# 项目任务看板
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+
+const issues = ref([])
+const loading = ref(true)
+
+onMounted(async () => {
+  try {
+    const res = await fetch('/weilai/issues.json')
+    const data = await res.json()
+    issues.value = data
+  } catch(e) {
+    console.error('Failed to load issues:', e)
+  } finally {
+    loading.value = false
+  }
+})
+
+const labelKey = (labels) => {
+  for (const l of labels) {
+    if (l.name.startsWith('P0')) return 'p0'
+    if (l.name.startsWith('P1')) return 'p1'
+    if (l.name.startsWith('P2')) return 'p2'
+    if (l.name === '已完成') return 'done'
+  }
+  return 'p2'
+}
+const labelText = (labels) => {
+  for (const l of labels) {
+    if (l.name.startsWith('P0')) return 'P0'
+    if (l.name.startsWith('P1')) return 'P1'
+    if (l.name.startsWith('P2')) return 'P2'
+    if (l.name === '已完成') return 'OK'
+  }
+  return ''
+}
+
+const activeIssues = computed(() => issues.value.filter(i => i.state === 'open'))
+const doneIssues = computed(() => issues.value.filter(i => i.state === 'closed'))
+const p0s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p0'))
+const p1s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p1'))
+const p2s = computed(() => activeIssues.value.filter(i => labelKey(i.labels) === 'p2'))
+
+const fmtDate = (d) => {
+  if (!d) return ''
+  return new Date(d).toLocaleDateString('zh-CN', { month:'short', day:'numeric' })
+}
+</script>
 
 <style>
-.kanban-wrap {
+.kb-loading { text-align:center; padding:48px; color:var(--vp-c-text-2); }
+.kb-wrap { margin:20px 0 32px 0; }
+.kb-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
-  margin: 20px 0 32px 0;
+  margin-bottom: 20px;
 }
-@media (max-width: 900px) {
-  .kanban-wrap { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 500px) {
-  .kanban-wrap { grid-template-columns: 1fr; }
-}
+@media (max-width: 700px) { .kb-row { grid-template-columns: 1fr; } }
 .kb-col {
   background: var(--vp-c-bg-soft);
   border-radius: 10px;
-  padding: 0;
   overflow: hidden;
 }
 .kb-head {
-  padding: 14px 16px 10px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 12px 16px;
+  display: flex; justify-content: space-between; align-items: center;
 }
-.kb-head h3 {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 600;
+.kb-head h3 { margin:0; font-size:13px; font-weight:600; }
+.kb-head .cnt { font-size:12px; font-weight:500; padding:2px 10px; border-radius:10px; }
+.row-p0 .kb-head { border-bottom:2px solid #fca5a5; }
+.row-p0 .kb-head h3 { color:#dc2626; }
+.row-p0 .cnt { background:#fee2e2; color:#dc2626; }
+.row-p1 .kb-head { border-bottom:2px solid #fdba74; }
+.row-p1 .kb-head h3 { color:#ea580c; }
+.row-p1 .cnt { background:#ffedd5; color:#ea580c; }
+.row-p2 .kb-head { border-bottom:2px solid #86efac; }
+.row-p2 .kb-head h3 { color:#16a34a; }
+.row-p2 .cnt { background:#dcfce7; color:#16a34a; }
+.kb-body { padding:10px 14px 14px 14px; }
+.kb-item {
+  display: flex; align-items: flex-start; gap:10px;
+  padding:10px 12px; margin-bottom:6px;
+  background:var(--vp-c-bg); border:1px solid var(--vp-c-divider);
+  border-radius:8px; font-size:13px; text-decoration:none; color:inherit;
+  transition: border-color 0.15s;
 }
-.kb-head .count {
-  font-size: 12px;
-  font-weight: 500;
-  padding: 2px 10px;
-  border-radius: 10px;
+.kb-item:last-child { margin-bottom:0; }
+.kb-item:hover { border-color:var(--vp-c-brand-1); }
+.kb-item .pri {
+  flex-shrink:0; font-size:10px; font-weight:600;
+  padding:2px 6px; border-radius:3px; margin-top:1px;
 }
-.col-gray .kb-head { border-bottom: 2px solid #d1d5db; }
-.col-gray .kb-head h3 { color: #6b7280; }
-.col-gray .count { background: #f3f4f6; color: #6b7280; }
+.pri-p0 { background:#fee2e2; color:#dc2626; }
+.pri-p1 { background:#ffedd5; color:#ea580c; }
+.pri-p2 { background:#dcfce7; color:#16a34a; }
+.pri-done { background:#dbeafe; color:#2563eb; }
+.kb-item .num { font-size:11px; color:var(--vp-c-text-3); margin-left:auto; flex-shrink:0; }
 
-.col-blue .kb-head { border-bottom: 2px solid #93c5fd; }
-.col-blue .kb-head h3 { color: #2563eb; }
-.col-blue .count { background: #dbeafe; color: #2563eb; }
-
-.col-amber .kb-head { border-bottom: 2px solid #fcd34d; }
-.col-amber .kb-head h3 { color: #d97706; }
-.col-amber .count { background: #fef3c7; color: #d97706; }
-
-.col-green .kb-head { border-bottom: 2px solid #6ee7b7; }
-.col-green .kb-head h3 { color: #059669; }
-.col-green .count { background: #d1fae5; color: #059669; }
-
-.kb-body {
-  padding: 12px 14px 16px 14px;
+.kb-done {
+  background: var(--vp-c-bg-soft);
+  border-radius: 10px; overflow: hidden; margin-bottom: 24px;
 }
-.kb-card {
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 8px;
-  font-size: 13px;
-  line-height: 1.6;
-  transition: border-color 0.15s, box-shadow 0.15s;
+.kb-done .kb-head { border-bottom:2px solid #93c5fd; }
+.kb-done .kb-head h3 { color:#2563eb; }
+.kb-done .cnt { background:#dbeafe; color:#2563eb; }
+.kb-done-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap:6px;
+  padding:10px 14px 14px 14px;
 }
-.kb-card:last-child { margin-bottom: 0; }
-.kb-card:hover {
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+@media (max-width: 500px) { .kb-done-grid { grid-template-columns: 1fr; } }
+.kb-gh-link {
+  display:block; text-align:center; margin-top:24px;
+  font-size:13px; color:var(--vp-c-text-2);
 }
-.kb-card .pri {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 3px;
-  margin-right: 8px;
-  vertical-align: middle;
-  letter-spacing: 0.5px;
-}
-.pri-p0 { background: #fce4ec; color: #c62828; }
-.pri-p1 { background: #fff3e0; color: #e65100; }
-.pri-p2 { background: #e8f5e9; color: #2e7d32; }
-.pri-done { background: #e3f2fd; color: #1565c0; }
+.kb-gh-link a { font-weight:500; }
 </style>
 
-<div class="kanban-wrap">
+# 任务看板
 
-<div class="kb-col col-gray">
-<div class="kb-head">
-  <h3>待开始</h3>
-  <span class="count">5</span>
-</div>
-<div class="kb-body">
+<div v-if="loading" class="kb-loading">加载中...</div>
 
-<div class="kb-card">
-<span class="pri pri-p1">P1</span>注册北京总部公司
-</div>
+<template v-else>
 
-<div class="kb-card">
-<span class="pri pri-p1">P1</span>品牌 VI 与视觉体系落地
-</div>
+<div class="kb-wrap">
 
-<div class="kb-card">
-<span class="pri pri-p2">P2</span>学员社群方案定稿
-</div>
+<div class="kb-row">
+  <div class="kb-col row-p0">
+    <div class="kb-head">
+      <h3>本周必须完成</h3>
+      <span class="cnt">{{ p0s.length }} 项</span>
+    </div>
+    <div class="kb-body">
+      <a v-for="i in p0s" :key="i.number" :href="i.url" target="_blank" class="kb-item">
+        <span class="pri pri-p0">P0</span>
+        <span>{{ i.title }}</span>
+        <span class="num">#{{ i.number }}</span>
+      </a>
+      <div v-if="p0s.length===0" style="font-size:12px;color:var(--vp-c-text-3);padding:8px;">暂无</div>
+    </div>
+  </div>
 
-<div class="kb-card">
-<span class="pri pri-p2">P2</span>赛事体系方案定稿
-</div>
+  <div class="kb-col row-p1">
+    <div class="kb-head">
+      <h3>两周内完成</h3>
+      <span class="cnt">{{ p1s.length }} 项</span>
+    </div>
+    <div class="kb-body">
+      <a v-for="i in p1s" :key="i.number" :href="i.url" target="_blank" class="kb-item">
+        <span class="pri pri-p1">P1</span>
+        <span>{{ i.title }}</span>
+        <span class="num">#{{ i.number }}</span>
+      </a>
+      <div v-if="p1s.length===0" style="font-size:12px;color:var(--vp-c-text-3);padding:8px;">暂无</div>
+    </div>
+  </div>
 
-<div class="kb-card">
-<span class="pri pri-p2">P2</span>认证体系方案定稿
-</div>
-
-</div>
-</div>
-
-<div class="kb-col col-blue">
-<div class="kb-head">
-  <h3>进行中</h3>
-  <span class="count">6</span>
-</div>
-<div class="kb-body">
-
-<div class="kb-card">
-<span class="pri pri-p0">P0</span>投资招募推进
-</div>
-
-<div class="kb-card">
-<span class="pri pri-p0">P0</span>城市合伙人首批招募（山东/重庆/珠海/海南）
-</div>
-
-<div class="kb-card">
-<span class="pri pri-p0">P0</span>首期 L1 招生准备（7/12 - 7/28）
-</div>
-
-<div class="kb-card">
-<span class="pri pri-p1">P1</span>L1 老板自讲教案定稿
-</div>
-
-<div class="kb-card">
-<span class="pri pri-p1">P1</span>招生落地页 + 海报物料上线
+  <div class="kb-col row-p2">
+    <div class="kb-head">
+      <h3>本月内完成</h3>
+      <span class="cnt">{{ p2s.length }} 项</span>
+    </div>
+    <div class="kb-body">
+      <a v-for="i in p2s" :key="i.number" :href="i.url" target="_blank" class="kb-item">
+        <span class="pri pri-p2">P2</span>
+        <span>{{ i.title }}</span>
+        <span class="num">#{{ i.number }}</span>
+      </a>
+      <div v-if="p2s.length===0" style="font-size:12px;color:var(--vp-c-text-3);padding:8px;">暂无</div>
+    </div>
+  </div>
 </div>
 
-<div class="kb-card">
-<span class="pri pri-p1">P1</span>讲师候选人面试与确认
-</div>
-
-</div>
-</div>
-
-<div class="kb-col col-amber">
-<div class="kb-head">
-  <h3>待审核</h3>
-  <span class="count">3</span>
-</div>
-<div class="kb-body">
-
-<div class="kb-card">
-<span class="pri pri-p1">P1</span>招生文案成品终审
-</div>
-
-<div class="kb-card">
-<span class="pri pri-p1">P1</span>朋友圈/小红书内容预编辑包审核
-</div>
-
-<div class="kb-card">
-<span class="pri pri-p2">P2</span>城市合作协议模板法律审核
+<div class="kb-done">
+  <div class="kb-head">
+    <h3>已完成</h3>
+    <span class="cnt">{{ doneIssues.length }} 项</span>
+  </div>
+  <div class="kb-done-grid">
+    <a v-for="i in doneIssues" :key="i.number" :href="i.url" target="_blank" class="kb-item">
+      <span class="pri pri-done">OK</span>
+      <span>{{ i.title }}</span>
+      <span class="num">#{{ i.number }}</span>
+    </a>
+  </div>
 </div>
 
 </div>
+
+<div class="kb-gh-link">
+  完整管理 → <a href="https://github.com/msnpeer/weilai/issues" target="_blank">GitHub Issues</a>
 </div>
 
-<div class="kb-col col-green">
-<div class="kb-head">
-  <h3>已完成</h3>
-  <span class="count">6</span>
-</div>
-<div class="kb-body">
-
-<div class="kb-card">
-<span class="pri pri-done">OK</span>Wiki 知识库搭建上线
-</div>
-
-<div class="kb-card">
-<span class="pri pri-done">OK</span>桌面文件整合归档
-</div>
-
-<div class="kb-card">
-<span class="pri pri-done">OK</span>核心商业文档终稿（投资招募 + 城市合伙人）
-</div>
-
-<div class="kb-card">
-<span class="pri pri-done">OK</span>三阶课程教案完成
-</div>
-
-<div class="kb-card">
-<span class="pri pri-done">OK</span>核心团队架构确立
-</div>
-
-<div class="kb-card">
-<span class="pri pri-done">OK</span>产品信息四份文档上线
-</div>
-
-</div>
-</div>
-
-</div>
+</template>
 
 ---
 
-**优先级**：<span class="pri pri-p0">P0</span> 本周必须完成 · <span class="pri pri-p1">P1</span> 两周内 · <span class="pri pri-p2">P2</span> 本月内
+## Agent 操作指南
 
-> Agent 协作：接任务前先看本看板，完成后移动对应卡片。
+### 创建新任务
+```bash
+gh issue create --repo msnpeer/weilai \
+  --title "任务描述" \
+  --label "P1 两周内完成" \
+  --body "详细说明"
+```
+
+### 完成任务
+```bash
+gh issue close <编号> --repo msnpeer/weilai
+```
+
+### 查看所有任务
+```bash
+gh issue list --repo msnpeer/weilai
+```
+
+> 每次 push wiki 代码后，Actions 自动抓取最新 Issues 数据，本页同步更新。
