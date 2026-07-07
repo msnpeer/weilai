@@ -220,3 +220,5 @@ gh issue list --repo msnpeer/weilai
 ```
 
 > 每次 push wiki 代码后，Actions 自动抓取最新 Issues 数据，本页同步更新。
+
+<!-- @Agent: Clyde | 2026-07-07 | create/modify: 初始化 Wiki 知识库 -->

@@ -169,3 +169,5 @@
 > **仓库总文件数**：约 130 个项目文件（不含 node_modules）
 >
 > **Agent 快速入口**：先读 `wiki/README.md`（规范）→ 读本文件（索引）→ 读 `wiki/kanban.md`（任务状态）→ 开始工作
+
+<!-- @Agent: Clyde | 2026-07-07 | create/modify: 初始化 Wiki 知识库 -->

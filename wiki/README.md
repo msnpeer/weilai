@@ -140,3 +140,5 @@ git push origin main
 ---
 
 <!-- @Agent: WorkBuddy-Clyde | 2026-07-07 | create: 建立 Agent 协作规范 v2.0 -->
+
+<!-- @Agent: Clyde | 2026-07-07 | create/modify: 初始化 Wiki 知识库 -->
