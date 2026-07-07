@@ -81,7 +81,7 @@ onMounted(() => {
 <div class="kanban-card">
 <span class="tag tag-p1">P1</span>
 <div>注册北京总部公司</div>
-<span class="tag-owner">何虹洁</span>
+<span class="tag-owner">王洋</span>
 </div>
 
 <div class="kanban-card">
@@ -122,12 +122,12 @@ onMounted(() => {
 <div class="kanban-card">
 <span class="tag tag-p0">P0</span>
 <div>投资招募推进</div>
-<span class="tag-owner">何虹洁 / 王洋</span>
+<span class="tag-owner">王洋</span>
 </div>
 
 <div class="kanban-card">
 <span class="tag tag-p0">P0</span>
-<div>城市合伙人首批招募（山东/重庆/珠海/海南）</div>
+<div>城市合伙人首批招募</div>
 <span class="tag-owner">刘怀华</span>
 </div>
 
@@ -163,7 +163,7 @@ onMounted(() => {
 <div class="kanban-card">
 <span class="tag tag-p1">P1</span>
 <div>招生文案成品终审</div>
-<span class="tag-owner">何虹洁</span>
+<span class="tag-owner">刘怀华</span>
 </div>
 
 <div class="kanban-card">

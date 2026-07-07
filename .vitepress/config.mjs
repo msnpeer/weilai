@@ -29,11 +29,12 @@ export default defineConfig({
       { text: '首页', link: '/' },
       { text: '知识库', link: '/wiki/INDEX' },
       {
-        text: '文档',
+        text: '核心信息',
         items: [
-          { text: '产品参数', link: '/wiki/specs/产品参数' },
-          { text: '城市合伙人', link: '/wiki/specs/城市合伙人体系' },
-          { text: '投资招募', link: '/wiki/specs/投资招募' },
+          { text: '投资招募计划书', link: '/wiki/specs/投资招募' },
+          { text: '城市合伙人计划', link: '/wiki/specs/城市合伙人体系' },
+          { text: '课程清单', link: '/wiki/specs/课程清单' },
+          { text: '团队人员清单', link: '/wiki/specs/团队人员清单' },
         ]
       },
       { text: '看板', link: '/wiki/kanban' },
@@ -57,12 +58,13 @@ export default defineConfig({
           ]
         },
         {
-          text: '产品规格',
+          text: '核心产品信息',
           collapsed: false,
           items: [
-            { text: '产品参数', link: '/wiki/specs/产品参数' },
-            { text: '城市合伙人体系', link: '/wiki/specs/城市合伙人体系' },
-            { text: '投资招募', link: '/wiki/specs/投资招募' },
+            { text: '投资招募计划书', link: '/wiki/specs/投资招募' },
+            { text: '城市合伙人商业计划书', link: '/wiki/specs/城市合伙人体系' },
+            { text: '课程清单', link: '/wiki/specs/课程清单' },
+            { text: '团队人员清单', link: '/wiki/specs/团队人员清单' },
           ]
         },
         {
