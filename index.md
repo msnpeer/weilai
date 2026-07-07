@@ -1,39 +1,5 @@
 ---
 layout: home
-
-hero:
-  name: "未来 AI 实战训练营"
-  text: "团队共享知识中枢"
-  tagline: 多人协作 · 多 Agent 并行 · 单一真相源
-  actions:
-    - theme: brand
-      text: 进入知识库
-      link: /wiki/INDEX
-    - theme: alt
-      text: Agent 协作规范
-      link: /wiki/README
-  image:
-    src: /logo.svg
-    alt: 未来AI
-
-features:
-  - icon: 🧭
-    title: 决策可追溯
-    details: 每一次关键决策都记录在 decisions/ 中，带日期、背景、理由和备选方案。
-    link: /wiki/decisions/2026-07-07_Wiki技术选型.html
-  - icon: 📐
-    title: 规格唯一源
-    details: 定价、分成比例、产品参数统一存放在 specs/，Agent 不再用旧数据。
-    link: /wiki/specs/产品参数.html
-  - icon: 🤖
-    title: Agent 原生
-    details: 所有内容都是 Markdown 文件，Agent 直接读写，无需 API 中间层。
-    link: /wiki/README.html
-  - icon: ⚡
-    title: 自动部署
-    details: 每次推送自动构建为网页，手机浏览器即可访问。
-    link: https://github.com/msnpeer/weilai
-
 ---
 
 <style>
@@ -43,56 +9,194 @@ features:
   --vp-c-brand-1: #2563eb;
   --vp-c-brand-2: #3b82f6;
   --vp-c-brand-3: #1d4ed8;
-  --vp-button-brand-bg: #2563eb;
-  --vp-button-brand-hover-bg: #1d4ed8;
-  --vp-c-brand-soft: rgba(37, 99, 235, 0.1);
 }
-
 .dark {
   --vp-c-brand-1: #60a5fa;
   --vp-c-brand-2: #3b82f6;
   --vp-c-brand-3: #93bbfd;
-  --vp-button-brand-bg: #3b82f6;
-  --vp-button-brand-hover-bg: #2563eb;
-  --vp-c-brand-soft: rgba(59, 130, 246, 0.16);
 }
-
+.VPHero { padding: 48px 0 24px 0 !important; }
 .VPHero .name {
   background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+.VPHero .text { font-size: 22px !important; font-weight: 500 !important; }
+.VPHero .tagline { font-size: 15px !important; }
 
-.VPHero .text {
-  font-size: 28px !important;
-  font-weight: 500 !important;
+.cmd-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px 48px 24px;
 }
 
-.VPFeature {
-  border-radius: 12px !important;
-  border: 1px solid var(--vp-c-divider) !important;
-  transition: border-color 0.2s, box-shadow 0.2s !important;
+.cmd-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
 }
+@media (max-width: 640px) { .cmd-stats { grid-template-columns: repeat(2, 1fr); } }
+.cmd-stat {
+  background: var(--vp-c-bg-soft);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.cmd-stat .num { font-size: 28px; font-weight: 600; }
+.cmd-stat .label { font-size: 12px; color: var(--vp-c-text-2); margin-top: 4px; }
+.s-blue .num { color: #2563eb; }
+.s-green .num { color: #059669; }
+.s-amber .num { color: #d97706; }
+.s-purple .num { color: #7c3aed; }
 
-.VPFeature:hover {
-  border-color: var(--vp-c-brand-1) !important;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08) !important;
+.cmd-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
+@media (max-width: 640px) { .cmd-grid { grid-template-columns: 1fr; } }
+.cmd-card {
+  background: var(--vp-c-bg-soft);
+  border-radius: 10px;
+  padding: 18px 20px;
+  border: 1px solid var(--vp-c-divider);
+  transition: border-color 0.2s;
+}
+.cmd-card:hover { border-color: var(--vp-c-brand-1); }
+.cmd-card h3 { font-size: 14px; font-weight: 600; margin: 0 0 6px 0; }
+.cmd-card p { font-size: 12px; color: var(--vp-c-text-2); margin: 0 0 12px 0; line-height: 1.6; }
+.cmd-card .links { display: flex; flex-wrap: wrap; gap: 8px; }
+.cmd-card .links a {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.link-blue { background: #dbeafe; color: #1d4ed8; }
+.link-green { background: #d1fae5; color: #065f46; }
+.link-amber { background: #fef3c7; color: #92400e; }
+.link-purple { background: #ede9fe; color: #6d28d9; }
 
-.VPNavBar {
-  backdrop-filter: blur(12px);
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
 }
-
-.VPNavBarTitle .title {
-  font-weight: 600 !important;
-}
-
-.VPSidebar {
-  border-right: 1px solid var(--vp-c-divider) !important;
-}
-
-.VPDoc .container {
-  max-width: 800px !important;
-}
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.dot-green { background: #10b981; }
+.dot-amber { background: #f59e0b; }
+.dot-gray { background: #9ca3af; }
 </style>
+
+<script setup>
+import { VPHomeHero } from 'vitepress/theme'
+</script>
+
+<VPHomeHero
+  name="未来 AI 实战训练营"
+  text="指挥部"
+  tagline="多人协作 · 多 Agent 并行 · 单一真相源"
+/>
+
+<div class="cmd-wrap">
+
+<div class="cmd-stats">
+  <div class="cmd-stat s-blue">
+    <div class="num">4</div>
+    <div class="label">核心文档就绪</div>
+  </div>
+  <div class="cmd-stat s-green">
+    <div class="num">7</div>
+    <div class="label">已完成节点</div>
+  </div>
+  <div class="cmd-stat s-amber">
+    <div class="num">6</div>
+    <div class="label">进行中任务</div>
+  </div>
+  <div class="cmd-stat s-purple">
+    <div class="num">14</div>
+    <div class="label">核心团队成员</div>
+  </div>
+</div>
+
+<div class="cmd-grid">
+
+  <div class="cmd-card">
+    <h3>💰 融资与估值</h3>
+    <p>30 万 / 10% / 估值 300 万 · 3 层权益 · 24 月锁定期</p>
+    <div class="status-row">
+      <span class="dot dot-green"></span> 投资招募计划书 v5.1 定稿
+    </div>
+    <div class="links">
+      <a class="link-blue" href="/weilai/wiki/specs/投资招募">完整版计划书</a>
+    </div>
+  </div>
+
+  <div class="cmd-card">
+    <h3>🤝 城市合伙人体系</h3>
+    <p>四档（银/金/钻石/战略）· 预购 5-7 折 · 分账 2:8~4:6</p>
+    <div class="status-row">
+      <span class="dot dot-green"></span> 城市合伙人计划 v2.1 定稿
+    </div>
+    <div class="links">
+      <a class="link-blue" href="/weilai/wiki/specs/城市合伙人体系">完整版计划书</a>
+    </div>
+  </div>
+
+  <div class="cmd-card">
+    <h3>📚 课程体系</h3>
+    <p>三阶 × 双赛道 · ¥3,980~¥39,800 · 全程实操出成品</p>
+    <div class="status-row">
+      <span class="dot dot-green"></span> 三阶课程教案完成 · 定价体系确定
+    </div>
+    <div class="links">
+      <a class="link-blue" href="/weilai/wiki/specs/课程清单">完整课程清单</a>
+    </div>
+  </div>
+
+  <div class="cmd-card">
+    <h3>👥 团队架构</h3>
+    <p>8 人讲师团队 + 6 人核心运营 · 16 年教育根基</p>
+    <div class="status-row">
+      <span class="dot dot-green"></span> 团队架构确立 · 角色分工明确
+    </div>
+    <div class="links">
+      <a class="link-blue" href="/weilai/wiki/specs/团队人员清单">完整人员清单</a>
+      <a class="link-purple" href="/weilai/wiki/contacts/核心团队">团队详情页</a>
+    </div>
+  </div>
+
+  <div class="cmd-card">
+    <h3>🚀 首期启动</h3>
+    <p>首批 4 城（山东/重庆/珠海/海南）· 7/12-7/28 招生窗口</p>
+    <div class="status-row">
+      <span class="dot dot-amber"></span> 招生物料准备中 · 教案终审定稿中
+    </div>
+    <div class="links">
+      <a class="link-green" href="/weilai/wiki/kanban">任务看板</a>
+      <a class="link-amber" href="/weilai/wiki/meetings/_模板">会议模板</a>
+    </div>
+  </div>
+
+  <div class="cmd-card">
+    <h3>⚙️ Wiki 系统</h3>
+    <p>GitHub 私有仓库 · VitePress 自动部署 · Agent 原生协作</p>
+    <div class="status-row">
+      <span class="dot dot-green"></span> 系统运行中 · 文件整合归档完成
+    </div>
+    <div class="links">
+      <a class="link-blue" href="/weilai/wiki/README">Agent 规范</a>
+      <a class="link-purple" href="/weilai/wiki/decisions/2026-07-07_Wiki技术选型">技术选型决策</a>
+      <a class="link-green" href="/weilai/wiki/INDEX">Wiki 总目录</a>
+    </div>
+  </div>
+
+</div>
+</div>
