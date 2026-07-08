@@ -98,5 +98,3 @@ export default defineConfig({
     }
   }
 })
-
-<!-- @Agent: Clyde | 2026-07-07 | create/modify: 初始化 Wiki 知识库 -->
