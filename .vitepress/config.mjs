@@ -54,6 +54,7 @@ export default defineConfig({
           text: '决策记录',
           collapsed: false,
           items: [
+            { text: '07-12 营销中心渠道激励政策', link: '/wiki/decisions/2026-07-12_营销中心渠道激励政策定稿' },
             { text: '07-11 城市合伙人协议定稿', link: '/wiki/decisions/2026-07-11_城市合伙人协议定稿' },
             { text: '07-07 Wiki 技术选型', link: '/wiki/decisions/2026-07-07_Wiki技术选型' },
           ]
