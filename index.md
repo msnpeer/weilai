@@ -132,7 +132,7 @@ import { VPHomeHero } from 'vitepress/theme'
     <h3>💰 融资与估值</h3>
     <p>30 万 / 10% / 估值 300 万 · 3 层权益 · 24 月锁定期</p>
     <div class="status-row">
-      <span class="dot dot-green"></span> 投资招募计划书 v5.1 定稿
+      <span class="dot dot-green"></span> 股权招募计划书 v5.1 定稿
     </div>
     <div class="links">
       <a class="link-blue" href="/weilai/wiki/specs/投资招募">完整版计划书</a>
