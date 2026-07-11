@@ -141,7 +141,7 @@ import { VPHomeHero } from 'vitepress/theme'
 
   <div class="cmd-card">
     <h3>🤝 城市合伙人体系</h3>
-    <p>四档（银/金/钻石/战略）· 预购 5-7 折 · 分账 2:8~4:6</p>
+    <p>五档（银/金/钻石/战略）· 预购 5-7 折 · 分账 2:8~4:6</p>
     <div class="status-row">
       <span class="dot dot-green"></span> 城市合伙人计划 v2.1 定稿
     </div>
