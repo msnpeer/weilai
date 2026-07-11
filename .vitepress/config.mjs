@@ -64,7 +64,7 @@ export default defineConfig({
           items: [
             { text: '股权招募计划书', link: '/wiki/specs/投资招募' },
             { text: '城市合伙人招募计划书', link: '/wiki/specs/城市合伙人体系' },
-            { text: '城市合伙人协议 → GitHub', link: 'https://github.com/msnpeer/weilai/blob/main/核心商业文档/城市合伙人协议.md' },
+            { text: '城市合伙人协议', link: '/wiki/specs/城市合伙人协议' },
             { text: '课程清单', link: '/wiki/specs/课程清单' },
             { text: '团队人员清单', link: '/wiki/specs/团队人员清单' },
             { text: '产品参数速查', link: '/wiki/specs/产品参数' },
