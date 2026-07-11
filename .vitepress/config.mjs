@@ -31,8 +31,8 @@ export default defineConfig({
       {
         text: '核心信息',
         items: [
-          { text: '投资招募计划书', link: '/wiki/specs/投资招募' },
-          { text: '城市合伙人计划', link: '/wiki/specs/城市合伙人体系' },
+          { text: '股权招募计划书', link: '/wiki/specs/投资招募' },
+          { text: '城市合伙人招募计划书', link: '/wiki/specs/城市合伙人体系' },
           { text: '课程清单', link: '/wiki/specs/课程清单' },
           { text: '团队人员清单', link: '/wiki/specs/团队人员清单' },
         ]
@@ -54,17 +54,20 @@ export default defineConfig({
           text: '决策记录',
           collapsed: false,
           items: [
-            { text: '2026-07-07 Wiki 技术选型', link: '/wiki/decisions/2026-07-07_Wiki技术选型' },
+            { text: '07-11 城市合伙人协议定稿', link: '/wiki/decisions/2026-07-11_城市合伙人协议定稿' },
+            { text: '07-07 Wiki 技术选型', link: '/wiki/decisions/2026-07-07_Wiki技术选型' },
           ]
         },
         {
           text: '核心产品信息',
           collapsed: false,
           items: [
-            { text: '投资招募计划书', link: '/wiki/specs/投资招募' },
-            { text: '城市合伙人商业计划书', link: '/wiki/specs/城市合伙人体系' },
+            { text: '股权招募计划书', link: '/wiki/specs/投资招募' },
+            { text: '城市合伙人招募计划书', link: '/wiki/specs/城市合伙人体系' },
+            { text: '城市合伙人协议 → GitHub', link: 'https://github.com/msnpeer/weilai/blob/main/核心商业文档/城市合伙人协议.md' },
             { text: '课程清单', link: '/wiki/specs/课程清单' },
             { text: '团队人员清单', link: '/wiki/specs/团队人员清单' },
+            { text: '产品参数速查', link: '/wiki/specs/产品参数' },
           ]
         },
         {
